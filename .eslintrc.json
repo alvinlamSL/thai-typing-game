@@ -18,6 +18,9 @@
         "react"
     ],
     "rules": {
-        "@typescript-eslint/semi": [2, "always"]
+        "@typescript-eslint/semi": [2, "always"],
+        "@typescript-eslint/indent": ["error", 4],
+        "comma-dangle": "off",
+        "@typescript-eslint/comma-dangle": ["error", "only-multiline"]
     }
 }
