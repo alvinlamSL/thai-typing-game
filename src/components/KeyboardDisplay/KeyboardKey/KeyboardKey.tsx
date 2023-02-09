@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 
 import styles from './KeyboardKey.styles';
 
-interface KeyboardKeyProps {
+export interface KeyboardKeyProps {
     mainText: string
     subText?: string
 }
