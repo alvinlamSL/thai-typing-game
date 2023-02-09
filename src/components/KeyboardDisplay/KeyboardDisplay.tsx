@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/system';
 
-import KeyboardKey from './KeyboardKey';
+import KeyboardLayout from './KeyboardLayout';
 
 import styles from './KeyboardDisplay.styles';
 
@@ -10,7 +10,7 @@ const TextDisplay: React.FC = () => {
         <Box
             sx={{ ...styles?.main }}
         >
-            <KeyboardKey mainText='A' subText='B'/>
+            <KeyboardLayout />
         </Box>
     );
 };
