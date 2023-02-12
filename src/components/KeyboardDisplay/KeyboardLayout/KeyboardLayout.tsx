@@ -13,30 +13,41 @@ interface KeyboardRowKey {
 
 export interface KeyboardRowProps {
     keyboardKeys: KeyboardRowKey[]
+    pressedKeys?: string[]
 };
 
-const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys }) => {
+interface KeyboardLayoutProps {
+    pressedKeys: string[]
+}
+
+const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = [] }) => {
     return (
         <Grid container spacing={1} justifyContent="space-between">
-            {keyboardKeys.map(({ keyProps, size }) => (
+            {keyboardKeys.map(({ keyProps, size }, idx) => (
                 <Grid
-                    key={keyProps.mainText}
+                    key={`${keyProps.mainText}_${idx}`}
                     item
                     xs={size}
                 >
-                    <KeyboardKey {...keyProps} />
+                    <KeyboardKey
+                        {...keyProps}
+                        isPressed={pressedKeys.includes(keyProps.subText ?? keyProps.mainText)}
+                    />
                 </Grid>
             ))}
         </Grid>
     );
 };
 
-const KeyboardLayout: React.FC = () => {
+const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys }) => {
     return (
         <Grid container rowSpacing={0.5} direction="column">
             {keyboardRows.map((row, idx) => (
                 <Grid item key={idx}>
-                    <KeyboardRow keyboardKeys={row.keyboardKeys}/>
+                    <KeyboardRow
+                        keyboardKeys={row.keyboardKeys}
+                        pressedKeys={pressedKeys}
+                    />
                 </Grid>
             ))}
         </Grid>
