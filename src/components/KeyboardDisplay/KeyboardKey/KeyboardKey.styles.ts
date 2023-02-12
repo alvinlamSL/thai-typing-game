@@ -4,7 +4,6 @@ const styles: Record<string, SxProps> = {
     key: {
         position: 'relative',
         height: '3em',
-        background: '#DCD3FF',
         border: 'solid grey',
         borderWidth: '2px',
         borderRadius: '8px',

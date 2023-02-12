@@ -6,12 +6,20 @@ import styles from './KeyboardKey.styles';
 export interface KeyboardKeyProps {
     mainText: string
     subText?: string
+    isPressed?: boolean
 }
 
-const KeyboardKey: React.FC<KeyboardKeyProps> = ({ mainText, subText }) => {
+const KeyboardKey: React.FC<KeyboardKeyProps> = ({
+    mainText,
+    subText,
+    isPressed = false,
+}) => {
     return (
         <Box
-            sx={{ ...styles.key }}
+            sx={{
+                ...styles.key,
+                background: isPressed ? '#B3A0FF' : '#DCD3FF'
+            }}
         >
             <Box sx={{ ...styles.mainText }}>{mainText}</Box>
             <Box sx={{ ...styles.subText }}>{subText ?? ''}</Box>
