@@ -5,7 +5,7 @@ import KeyboardLayout from './KeyboardLayout';
 
 import styles from './KeyboardDisplay.styles';
 
-const TextDisplay: React.FC = () => {
+const KeyboardDisplay: React.FC = () => {
     return (
         <Box
             sx={{ ...styles?.main }}
@@ -15,4 +15,4 @@ const TextDisplay: React.FC = () => {
     );
 };
 
-export default TextDisplay;
+export default KeyboardDisplay;
