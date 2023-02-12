@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/system';
 
-import KeyboardLayout from './KeyboardLayout';
+import KeyboardLayout from './KeyboardLayout/index';
 
 import styles from './KeyboardDisplay.styles';
 

@@ -6,6 +6,8 @@ import { keyboardRows } from './constants';
 
 import type { KeyboardKeyProps } from '../KeyboardKey/KeyboardKey';
 
+import styles from './KeyboardLayout.styles';
+
 interface KeyboardRowKey {
     keyProps: KeyboardKeyProps
     size?: number
@@ -41,7 +43,12 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = [
 
 const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys }) => {
     return (
-        <Grid container rowSpacing={0.5} direction="column">
+        <Grid
+            container
+            rowSpacing={0.5}
+            direction="column"
+            sx={{ ...styles.main }}
+        >
             {keyboardRows.map((row, idx) => (
                 <Grid item key={idx}>
                     <KeyboardRow
