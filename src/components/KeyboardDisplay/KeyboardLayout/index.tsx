@@ -25,8 +25,13 @@ const KeyboardLayoutContainer: React.FC = () => {
         };
     }, []);
 
+    const pressedKeysObj: Record<string, boolean> = {};
+    pressedKeys.forEach((key) => {
+        pressedKeysObj[key] = true;
+    });
+
     return (
-        <KeyboardLayout pressedKeys={pressedKeys}/>
+        <KeyboardLayout pressedKeys={pressedKeysObj}/>
     );
 };
 
