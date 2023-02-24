@@ -15,14 +15,14 @@ interface KeyboardRowKey {
 
 export interface KeyboardRowProps {
     keyboardKeys: KeyboardRowKey[]
-    pressedKeys?: string[]
+    pressedKeys?: Record<string, boolean>
 };
 
 interface KeyboardLayoutProps {
-    pressedKeys: string[]
+    pressedKeys: Record<string, boolean>
 }
 
-const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = [] }) => {
+const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = {} }) => {
     return (
         <Grid container spacing={1} justifyContent="space-between">
             {keyboardKeys.map(({ keyProps, size }, idx) => (
@@ -33,7 +33,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = [
                 >
                     <KeyboardKey
                         {...keyProps}
-                        isPressed={pressedKeys.includes(keyProps.subText ?? keyProps.mainText)}
+                        isPressed={pressedKeys[keyProps.mainText] || pressedKeys[keyProps.subText ?? '']}
                     />
                 </Grid>
             ))}
