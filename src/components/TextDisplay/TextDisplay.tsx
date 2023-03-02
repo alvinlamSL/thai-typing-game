@@ -4,12 +4,23 @@ import { Grid } from '@mui/material';
 
 import {
     thaiScript,
-    engScript
+    engScript,
+    compoundLetters
 } from './constants';
 
 import styles from './TextDisplay.styles';
 
-const ThaiScriptDisplay: React.FC = () => {
+interface TextDisplayProps {
+    enteredText: string
+    lastLetter: string
+}
+
+interface ThaiScriptDisplayProps {
+    enteredText: string
+    lastEnteredLetter: string
+}
+
+const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({ enteredText, lastEnteredLetter }) => {
     return (
         <Grid
             item
@@ -21,8 +32,28 @@ const ThaiScriptDisplay: React.FC = () => {
             <div>
                 {thaiScript.replaceAll('.', '')}
             </div>
-            <Box sx={{ ...styles?.blinkingCursor }}>
-                <span>|</span>
+            {compoundLetters.includes(lastEnteredLetter) && (
+                <>
+                    <Box component='span'>
+                        {enteredText.slice(0, -1)}
+                    </Box>
+                    <Box component='span' sx={{ color: '#00ff00' }}>
+                        {`${enteredText[enteredText.length - 1] ?? ''}${lastEnteredLetter}`}
+                    </Box>
+                </>
+            )}
+            {!compoundLetters.includes(lastEnteredLetter) && (
+                <>
+                    <Box component='span'>
+                        {enteredText}
+                    </Box>
+                    <Box component='span' sx={{ color: '#00ff00' }}>
+                        {lastEnteredLetter}
+                    </Box>
+                </>
+            )}
+            <Box component='span' sx={{ ...styles?.blinkingCursor }}>
+                |
             </Box>
         </Grid>
     );
@@ -42,13 +73,16 @@ const EngScriptDisplay: React.FC = () => {
     );
 };
 
-const TextDisplay: React.FC = () => {
+const TextDisplay: React.FC<TextDisplayProps> = ({ enteredText, lastLetter }) => {
     return (
         <Box
             sx={{ ...styles?.main }}
         >
             <Grid container sx={{ height: '100%' }}>
-                <ThaiScriptDisplay/>
+                <ThaiScriptDisplay
+                    enteredText={enteredText}
+                    lastEnteredLetter={lastLetter}
+                />
                 <EngScriptDisplay/>
             </Grid>
         </Box>
