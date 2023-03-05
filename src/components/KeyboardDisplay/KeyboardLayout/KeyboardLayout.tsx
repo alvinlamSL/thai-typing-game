@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@mui/material';
 
 import KeyboardKey from '../KeyboardKey';
-import { keyboardRows } from './constants';
+import { keyboardRows, keyboardRowsShift } from './constants';
 
 import type { KeyboardKeyProps } from '../KeyboardKey/KeyboardKey';
 
@@ -13,13 +13,15 @@ interface KeyboardRowKey {
     size?: number
 }
 
-export interface KeyboardRowProps {
+interface KeyboardRowProps {
     keyboardKeys: KeyboardRowKey[]
+    isCapsOn: boolean
     pressedKeys?: Record<string, boolean>
 };
 
 interface KeyboardLayoutProps {
     pressedKeys: Record<string, boolean>
+    isCapsOn: boolean
 }
 
 const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = {} }) => {
@@ -41,7 +43,9 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = {
     );
 };
 
-const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys }) => {
+const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys, isCapsOn }) => {
+    const currentKeyboardRows = isCapsOn ? keyboardRowsShift : keyboardRows;
+
     return (
         <Grid
             container
@@ -49,9 +53,10 @@ const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys }) => {
             direction="column"
             sx={{ ...styles.main }}
         >
-            {keyboardRows.map((row, idx) => (
+            {currentKeyboardRows.map((row, idx) => (
                 <Grid item key={idx}>
                     <KeyboardRow
+                        isCapsOn={isCapsOn}
                         keyboardKeys={row.keyboardKeys}
                         pressedKeys={pressedKeys}
                     />
