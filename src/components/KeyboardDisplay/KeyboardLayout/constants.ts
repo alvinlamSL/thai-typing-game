@@ -1,6 +1,18 @@
-import type { KeyboardRowProps } from './KeyboardLayout';
+export interface KeyboardKey {
+    mainText: string
+    subText?: string
+}
 
-const keyboardRow1: KeyboardRowProps = {
+export interface KeyboardRowKey {
+    keyProps: KeyboardKey
+    size?: number
+}
+
+export interface KeyboardRow {
+    keyboardKeys: KeyboardRowKey[]
+}
+
+const keyboardRow1: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: '_', subText: '`' }, size: 0.8 },
         { keyProps: { mainText: 'ๅ', subText: '1' }, size: 0.8 },
@@ -19,7 +31,7 @@ const keyboardRow1: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow2: KeyboardRowProps = {
+const keyboardRow2: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: 'tab' }, size: 1.2 },
         { keyProps: { mainText: 'ๆ', subText: 'q' }, size: 0.8 },
@@ -38,9 +50,9 @@ const keyboardRow2: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow3: KeyboardRowProps = {
+const keyboardRow3: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'caps lock' }, size: 1.6 },
+        { keyProps: { mainText: 'capslock' }, size: 1.6 },
         { keyProps: { mainText: 'ฟ', subText: 'a' }, size: 0.8 },
         { keyProps: { mainText: 'ห', subText: 's' }, size: 0.8 },
         { keyProps: { mainText: 'ก', subText: 'd' }, size: 0.8 },
@@ -56,7 +68,7 @@ const keyboardRow3: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow4: KeyboardRowProps = {
+const keyboardRow4: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: 'shift' }, size: 2 },
         { keyProps: { mainText: 'ผ', subText: 'z' }, size: 0.8 },
@@ -73,7 +85,7 @@ const keyboardRow4: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow5: KeyboardRowProps = {
+const keyboardRow5: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: 'ctrl' }, size: 1 },
         { keyProps: { mainText: 'cmd' }, size: 1 },
@@ -85,7 +97,7 @@ const keyboardRow5: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow6: KeyboardRowProps = {
+const keyboardRow6: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: '%', subText: '`' }, size: 0.8 },
         { keyProps: { mainText: '+', subText: '1' }, size: 0.8 },
@@ -104,7 +116,7 @@ const keyboardRow6: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow7: KeyboardRowProps = {
+const keyboardRow7: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: 'tab' }, size: 1.2 },
         { keyProps: { mainText: '๐', subText: 'q' }, size: 0.8 },
@@ -123,9 +135,9 @@ const keyboardRow7: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow8: KeyboardRowProps = {
+const keyboardRow8: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'caps lock' }, size: 1.6 },
+        { keyProps: { mainText: 'capslock' }, size: 1.6 },
         { keyProps: { mainText: 'ฤ', subText: 'a' }, size: 0.8 },
         { keyProps: { mainText: 'ฆ', subText: 's' }, size: 0.8 },
         { keyProps: { mainText: 'ฏ', subText: 'd' }, size: 0.8 },
@@ -141,7 +153,7 @@ const keyboardRow8: KeyboardRowProps = {
     ]
 };
 
-const keyboardRow9: KeyboardRowProps = {
+const keyboardRow9: KeyboardRow = {
     keyboardKeys: [
         { keyProps: { mainText: 'shift' }, size: 2 },
         { keyProps: { mainText: '(', subText: 'z' }, size: 0.8 },
@@ -158,7 +170,7 @@ const keyboardRow9: KeyboardRowProps = {
     ]
 };
 
-export const keyboardRows: KeyboardRowProps[] = [
+export const keyboardRows: KeyboardRow[] = [
     keyboardRow1,
     keyboardRow2,
     keyboardRow3,
@@ -166,7 +178,7 @@ export const keyboardRows: KeyboardRowProps[] = [
     keyboardRow5,
 ];
 
-export const keyboardRowsShift: KeyboardRowProps[] = [
+export const keyboardRowsShift: KeyboardRow[] = [
     keyboardRow6,
     keyboardRow7,
     keyboardRow8,
