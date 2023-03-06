@@ -109,4 +109,5 @@ export const keyListShift: Record<string, PressedKey> = {
 
 export const compoundLetters: string[] = [
     'ุ', 'ึ', 'ำ', 'ั', 'ี', '้', '่', 'ิ', 'ื',
+    'ู', 'ํ', '๊', '็', '๋', 'ฺ', '์',
 ];
