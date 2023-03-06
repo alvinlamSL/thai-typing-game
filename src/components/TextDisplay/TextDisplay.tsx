@@ -2,25 +2,32 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 
-import {
-    thaiScript,
-    engScript,
-    compoundLetters
-} from './constants';
+import { engScript, compoundLetters } from './constants';
 
 import styles from './TextDisplay.styles';
 
 interface TextDisplayProps {
     enteredText: string
     lastLetter: string
+    thaiScript: string
+    currScriptLetterIndex: number
 }
 
 interface ThaiScriptDisplayProps {
     enteredText: string
     lastEnteredLetter: string
+    thaiScript: string
+    currScriptLetterIndex: number
 }
 
-const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({ enteredText, lastEnteredLetter }) => {
+const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
+    enteredText,
+    lastEnteredLetter,
+    thaiScript,
+    currScriptLetterIndex,
+}) => {
+    const currThaiScriptLetter = thaiScript[currScriptLetterIndex];
+
     return (
         <Grid
             item
@@ -29,9 +36,33 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({ enteredText, last
                 height: '65%',
             }}
         >
-            <div>
-                {thaiScript.replaceAll('.', '')}
-            </div>
+            {compoundLetters.includes(currThaiScriptLetter) && (
+                <>
+                    <Box component='span'>
+                        {thaiScript.slice(0, currScriptLetterIndex - 1)}
+                    </Box>
+                    <Box component='span' sx={{ background: '#ffffe0', color: 'black' }}>
+                        {thaiScript.slice(currScriptLetterIndex - 1, currScriptLetterIndex + 1)}
+                    </Box>
+                    <Box component='span'>
+                        {thaiScript.slice(currScriptLetterIndex + 1)}
+                    </Box>
+                </>
+            )}
+            {!compoundLetters.includes(currThaiScriptLetter) && (
+                <>
+                    <Box component='span'>
+                        {thaiScript.slice(0, currScriptLetterIndex)}
+                    </Box>
+                    <Box component='span' sx={{ background: '#ffffe0', color: 'black' }}>
+                        {thaiScript.slice(currScriptLetterIndex, currScriptLetterIndex + 1)}
+                    </Box>
+                    <Box component='span'>
+                        {thaiScript.slice(currScriptLetterIndex + 1)}
+                    </Box>
+                </>
+            )}
+            <div/>
             {compoundLetters.includes(lastEnteredLetter) && (
                 <>
                     <Box component='span'>
@@ -73,7 +104,12 @@ const EngScriptDisplay: React.FC = () => {
     );
 };
 
-const TextDisplay: React.FC<TextDisplayProps> = ({ enteredText, lastLetter }) => {
+const TextDisplay: React.FC<TextDisplayProps> = ({
+    enteredText,
+    lastLetter,
+    thaiScript,
+    currScriptLetterIndex,
+}) => {
     return (
         <Box
             sx={{ ...styles?.main }}
@@ -82,6 +118,8 @@ const TextDisplay: React.FC<TextDisplayProps> = ({ enteredText, lastLetter }) =>
                 <ThaiScriptDisplay
                     enteredText={enteredText}
                     lastEnteredLetter={lastLetter}
+                    currScriptLetterIndex={currScriptLetterIndex}
+                    thaiScript={thaiScript}
                 />
                 <EngScriptDisplay/>
             </Grid>

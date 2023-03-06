@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import { keyList, keyListShift } from './constants';
+import {
+    keyList,
+    keyListShift,
+    thaiScript
+} from './constants';
 
 import TextDisplay from './TextDisplay';
 
@@ -9,6 +13,9 @@ interface TextState {
     enteredText: string
     shiftKeyDown: boolean
     capsLockOn: boolean
+    scriptString: string
+    currScriptLetterIndex: number
+    backspacesRequired: number
 };
 
 const TextDisplayContainer: React.FC = () => {
@@ -17,6 +24,9 @@ const TextDisplayContainer: React.FC = () => {
         enteredText: '',
         shiftKeyDown: false,
         capsLockOn: false,
+        scriptString: thaiScript.replaceAll('.', ''),
+        currScriptLetterIndex: 0,
+        backspacesRequired: 0,
     });
 
     const handleKeyDown = (event: any): void => {
@@ -25,12 +35,31 @@ const TextDisplayContainer: React.FC = () => {
         // Set the text state based on the fresh state
         // using the setState(prevState => {}) pattern
         setTextState(prevState => {
-            const { lastLetter, enteredText } = prevState;
+            const {
+                lastLetter,
+                enteredText,
+                scriptString,
+                backspacesRequired,
+                currScriptLetterIndex
+            } = prevState;
+
+            const shouldDecreaseCurrScriptLetterIndex = (
+                (currScriptLetterIndex > 0) &&
+                (backspacesRequired === 0) &&
+                (lastLetter === scriptString[currScriptLetterIndex - 1])
+            );
+
             if (keyValue === 'backspace' && lastLetter && enteredText.length > 0) {
                 return ({
                     ...prevState,
                     lastLetter: enteredText[enteredText.length - 1],
                     enteredText: enteredText.slice(0, -1),
+                    currScriptLetterIndex: shouldDecreaseCurrScriptLetterIndex
+                        ? currScriptLetterIndex - 1
+                        : currScriptLetterIndex,
+                    backspacesRequired: backspacesRequired > 0
+                        ? backspacesRequired - 1
+                        : backspacesRequired,
                 });
             }
 
@@ -39,6 +68,12 @@ const TextDisplayContainer: React.FC = () => {
                     ...prevState,
                     lastLetter: '',
                     enteredText: '',
+                    currScriptLetterIndex: shouldDecreaseCurrScriptLetterIndex
+                        ? currScriptLetterIndex - 1
+                        : currScriptLetterIndex,
+                    backspacesRequired: backspacesRequired > 0
+                        ? backspacesRequired - 1
+                        : backspacesRequired,
                 });
             }
 
@@ -64,11 +99,23 @@ const TextDisplayContainer: React.FC = () => {
                 ? keyListShift
                 : keyList;
 
+            const currThaiScriptLetter = scriptString[currScriptLetterIndex];
+
+            // Where we are on the thai script
+            let newScriptLetterIndex = currScriptLetterIndex;
+            let newBackspacesRequired = backspacesRequired;
+            if (currThaiScriptLetter === currKeyList[keyValue].displayValue && backspacesRequired === 0) {
+                newScriptLetterIndex++;
+            } else {
+                newBackspacesRequired++;
+            }
+
             return ({
+                ...prevState,
                 lastLetter: currKeyList[keyValue].displayValue,
                 enteredText: `${prevState.enteredText}${prevState.lastLetter ?? ''}`,
-                shiftKeyDown: prevState.shiftKeyDown,
-                capsLockOn: prevState.capsLockOn,
+                currScriptLetterIndex: newScriptLetterIndex,
+                backspacesRequired: newBackspacesRequired,
             });
         });
     };
@@ -102,6 +149,8 @@ const TextDisplayContainer: React.FC = () => {
         <TextDisplay
             enteredText={textState.enteredText}
             lastLetter={textState.lastLetter}
+            thaiScript={textState.scriptString}
+            currScriptLetterIndex={textState.currScriptLetterIndex}
         />
     );
 };
