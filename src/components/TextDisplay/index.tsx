@@ -7,7 +7,7 @@ import {
     engScript,
 } from './constants';
 
-import { splitEngPhonemeScript } from './utils';
+import { splitPhonemeScript } from './utils';
 import { type PhonemeStartEnd } from './utils';
 
 import TextDisplay from './TextDisplay';
@@ -22,7 +22,8 @@ interface TextState {
     currThaiPhonemeLetterIndex: number
     backspacesRequired: number
     phonemeStartEndIndex: number
-    phonemeStartEndList: PhonemeStartEnd[]
+    engPhonemeStartEndList: PhonemeStartEnd[]
+    thaiPhonemeStartEndList: PhonemeStartEnd[]
 };
 
 const TextDisplayContainer: React.FC = () => {
@@ -36,7 +37,8 @@ const TextDisplayContainer: React.FC = () => {
         currThaiPhonemeLetterIndex: 0,
         backspacesRequired: 0,
         phonemeStartEndIndex: 0,
-        phonemeStartEndList: splitEngPhonemeScript(engScript),
+        engPhonemeStartEndList: splitPhonemeScript(engScript),
+        thaiPhonemeStartEndList: splitPhonemeScript(thaiScript, true),
     });
 
     const handleKeyDown = (event: any): void => {
@@ -117,6 +119,7 @@ const TextDisplayContainer: React.FC = () => {
                 });
             }
 
+            // If no valid key is pressed
             if (!keyList[keyValue]) {
                 return prevState;
             }
@@ -144,6 +147,7 @@ const TextDisplayContainer: React.FC = () => {
                 newPhonemeStartEndIndex++;
             }
 
+            // If a valid key is pressed
             return ({
                 ...prevState,
                 lastLetter: currKeyList[keyValue].displayValue,
@@ -182,23 +186,30 @@ const TextDisplayContainer: React.FC = () => {
     }, []);
 
     const {
-        phonemeStartEndList,
+        engPhonemeStartEndList,
+        thaiPhonemeStartEndList,
         phonemeStartEndIndex
     } = textState;
 
     const {
         start: engPhonemeStartIndex,
         end: engPhonemeEndIndex
-    } = phonemeStartEndList[phonemeStartEndIndex];
+    } = engPhonemeStartEndList[phonemeStartEndIndex];
+
+    const {
+        start: thaiPhonemeStartIndex,
+        end: thaiPhonemeEndIndex
+    } = thaiPhonemeStartEndList[phonemeStartEndIndex];
 
     return (
         <TextDisplay
             enteredText={textState.enteredText}
             lastLetter={textState.lastLetter}
             thaiScript={textState.scriptString}
-            currScriptLetterIndex={textState.currThaiScriptLetterIndex}
             engPhonemeStartIndex={engPhonemeStartIndex}
             engPhonemeEndIndex={engPhonemeEndIndex}
+            thaiPhonemeStartIndex={thaiPhonemeStartIndex}
+            thaiPhonemeEndIndex={thaiPhonemeEndIndex}
         />
     );
 };
