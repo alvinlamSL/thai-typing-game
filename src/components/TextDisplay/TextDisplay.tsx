@@ -11,6 +11,8 @@ interface TextDisplayProps {
     lastLetter: string
     thaiScript: string
     currScriptLetterIndex: number
+    engPhonemeStartIndex: number
+    engPhonemeEndIndex: number
 }
 
 interface ThaiScriptDisplayProps {
@@ -18,6 +20,11 @@ interface ThaiScriptDisplayProps {
     lastEnteredLetter: string
     thaiScript: string
     currScriptLetterIndex: number
+}
+
+interface EngScriptDisplayProps {
+    engPhonemeStartIndex: number
+    engPhonemeEndIndex: number
 }
 
 const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
@@ -90,7 +97,10 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     );
 };
 
-const EngScriptDisplay: React.FC = () => {
+const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({
+    engPhonemeStartIndex,
+    engPhonemeEndIndex,
+}) => {
     return (
         <Grid
             item
@@ -99,7 +109,15 @@ const EngScriptDisplay: React.FC = () => {
                 height: '30%',
             }}
         >
-            <div>{ engScript }</div>
+            <Box component='span'>
+                {engScript.slice(0, engPhonemeStartIndex)}
+            </Box>
+            <Box component='span' sx={{ background: '#ffffe0', color: 'black' }}>
+                {engScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
+            </Box>
+            <Box component='span'>
+                {engScript.slice(engPhonemeEndIndex)}
+            </Box>
         </Grid>
     );
 };
@@ -109,6 +127,8 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
     lastLetter,
     thaiScript,
     currScriptLetterIndex,
+    engPhonemeStartIndex,
+    engPhonemeEndIndex,
 }) => {
     return (
         <Box
@@ -121,7 +141,10 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
                     currScriptLetterIndex={currScriptLetterIndex}
                     thaiScript={thaiScript}
                 />
-                <EngScriptDisplay/>
+                <EngScriptDisplay
+                    engPhonemeStartIndex={engPhonemeStartIndex}
+                    engPhonemeEndIndex={engPhonemeEndIndex}
+                />
             </Grid>
         </Box>
     );
