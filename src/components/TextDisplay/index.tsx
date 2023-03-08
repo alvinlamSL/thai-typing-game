@@ -3,8 +3,12 @@ import React, { useEffect, useState } from 'react';
 import {
     keyList,
     keyListShift,
-    thaiScript
+    thaiScript,
+    engScript,
 } from './constants';
+
+import { splitEngPhonemeScript } from './utils';
+import { type PhonemeStartEnd } from './utils';
 
 import TextDisplay from './TextDisplay';
 
@@ -14,8 +18,11 @@ interface TextState {
     shiftKeyDown: boolean
     capsLockOn: boolean
     scriptString: string
-    currScriptLetterIndex: number
+    currThaiScriptLetterIndex: number
+    currThaiPhonemeLetterIndex: number
     backspacesRequired: number
+    phonemeStartEndIndex: number
+    phonemeStartEndList: PhonemeStartEnd[]
 };
 
 const TextDisplayContainer: React.FC = () => {
@@ -25,8 +32,11 @@ const TextDisplayContainer: React.FC = () => {
         shiftKeyDown: false,
         capsLockOn: false,
         scriptString: thaiScript.replaceAll('.', ''),
-        currScriptLetterIndex: 0,
+        currThaiScriptLetterIndex: 0,
+        currThaiPhonemeLetterIndex: 0,
         backspacesRequired: 0,
+        phonemeStartEndIndex: 0,
+        phonemeStartEndList: splitEngPhonemeScript(engScript),
     });
 
     const handleKeyDown = (event: any): void => {
@@ -40,26 +50,40 @@ const TextDisplayContainer: React.FC = () => {
                 enteredText,
                 scriptString,
                 backspacesRequired,
-                currScriptLetterIndex
+                currThaiScriptLetterIndex,
+                currThaiPhonemeLetterIndex,
+                phonemeStartEndIndex,
             } = prevState;
 
             const shouldDecreaseCurrScriptLetterIndex = (
-                (currScriptLetterIndex > 0) &&
+                (currThaiScriptLetterIndex > 0) &&
                 (backspacesRequired === 0) &&
-                (lastLetter === scriptString[currScriptLetterIndex - 1])
+                (lastLetter === scriptString[currThaiScriptLetterIndex - 1])
             );
+
+            let newThaiPhonemeLetterIndex = shouldDecreaseCurrScriptLetterIndex
+                ? currThaiPhonemeLetterIndex - 1
+                : currThaiPhonemeLetterIndex;
+
+            let newPhonemeStartEndIndex = phonemeStartEndIndex;
+            if (thaiScript[newThaiPhonemeLetterIndex] === '.') {
+                newThaiPhonemeLetterIndex--;
+                newPhonemeStartEndIndex--;
+            }
 
             if (keyValue === 'backspace' && lastLetter && enteredText.length > 0) {
                 return ({
                     ...prevState,
                     lastLetter: enteredText[enteredText.length - 1],
                     enteredText: enteredText.slice(0, -1),
-                    currScriptLetterIndex: shouldDecreaseCurrScriptLetterIndex
-                        ? currScriptLetterIndex - 1
-                        : currScriptLetterIndex,
+                    currThaiScriptLetterIndex: shouldDecreaseCurrScriptLetterIndex
+                        ? currThaiScriptLetterIndex - 1
+                        : currThaiScriptLetterIndex,
                     backspacesRequired: backspacesRequired > 0
                         ? backspacesRequired - 1
                         : backspacesRequired,
+                    currThaiPhonemeLetterIndex: newThaiPhonemeLetterIndex,
+                    phonemeStartEndIndex: newPhonemeStartEndIndex,
                 });
             }
 
@@ -68,12 +92,14 @@ const TextDisplayContainer: React.FC = () => {
                     ...prevState,
                     lastLetter: '',
                     enteredText: '',
-                    currScriptLetterIndex: shouldDecreaseCurrScriptLetterIndex
-                        ? currScriptLetterIndex - 1
-                        : currScriptLetterIndex,
+                    currThaiScriptLetterIndex: shouldDecreaseCurrScriptLetterIndex
+                        ? currThaiScriptLetterIndex - 1
+                        : currThaiScriptLetterIndex,
                     backspacesRequired: backspacesRequired > 0
                         ? backspacesRequired - 1
                         : backspacesRequired,
+                    currThaiPhonemeLetterIndex: newThaiPhonemeLetterIndex,
+                    phonemeStartEndIndex: newPhonemeStartEndIndex,
                 });
             }
 
@@ -99,23 +125,33 @@ const TextDisplayContainer: React.FC = () => {
                 ? keyListShift
                 : keyList;
 
-            const currThaiScriptLetter = scriptString[currScriptLetterIndex];
+            const currThaiScriptLetter = scriptString[currThaiScriptLetterIndex];
 
             // Where we are on the thai script
-            let newScriptLetterIndex = currScriptLetterIndex;
+            let newScriptLetterIndex = currThaiScriptLetterIndex;
             let newBackspacesRequired = backspacesRequired;
+            newThaiPhonemeLetterIndex = currThaiPhonemeLetterIndex;
+            newPhonemeStartEndIndex = phonemeStartEndIndex;
             if (currThaiScriptLetter === currKeyList[keyValue].displayValue && backspacesRequired === 0) {
                 newScriptLetterIndex++;
+                newThaiPhonemeLetterIndex++;
             } else {
                 newBackspacesRequired++;
+            }
+
+            if (thaiScript[newThaiPhonemeLetterIndex] === '.') {
+                newThaiPhonemeLetterIndex++;
+                newPhonemeStartEndIndex++;
             }
 
             return ({
                 ...prevState,
                 lastLetter: currKeyList[keyValue].displayValue,
                 enteredText: `${prevState.enteredText}${prevState.lastLetter ?? ''}`,
-                currScriptLetterIndex: newScriptLetterIndex,
+                currThaiScriptLetterIndex: newScriptLetterIndex,
+                currThaiPhonemeLetterIndex: newThaiPhonemeLetterIndex,
                 backspacesRequired: newBackspacesRequired,
+                phonemeStartEndIndex: newPhonemeStartEndIndex,
             });
         });
     };
@@ -145,12 +181,24 @@ const TextDisplayContainer: React.FC = () => {
         };
     }, []);
 
+    const {
+        phonemeStartEndList,
+        phonemeStartEndIndex
+    } = textState;
+
+    const {
+        start: engPhonemeStartIndex,
+        end: engPhonemeEndIndex
+    } = phonemeStartEndList[phonemeStartEndIndex];
+
     return (
         <TextDisplay
             enteredText={textState.enteredText}
             lastLetter={textState.lastLetter}
             thaiScript={textState.scriptString}
-            currScriptLetterIndex={textState.currScriptLetterIndex}
+            currScriptLetterIndex={textState.currThaiScriptLetterIndex}
+            engPhonemeStartIndex={engPhonemeStartIndex}
+            engPhonemeEndIndex={engPhonemeEndIndex}
         />
     );
 };
