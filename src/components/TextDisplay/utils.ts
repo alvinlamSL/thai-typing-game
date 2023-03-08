@@ -3,28 +3,38 @@ export interface PhonemeStartEnd {
     end: number
 }
 
-export const splitEngPhonemeScript = (engPhonemeScript: string): PhonemeStartEnd[] => {
+export const splitPhonemeScript = (
+    phonemeScript: string,
+    isThaiScript?: boolean
+): PhonemeStartEnd[] => {
     const phonemeStartEndList: PhonemeStartEnd[] = [];
 
     let phonemeStartIndex = 0;
     let phonemeEndIndex = 0;
-    engPhonemeScript.split('').forEach((char, idx) => {
-        if (char === '-') {
-            phonemeEndIndex = idx;
+    let count = 0;
+    phonemeScript.split('').forEach((char, idx) => {
+        if (char === '.' || char === '-') {
+            phonemeEndIndex = count;
             phonemeStartEndList.push({
                 start: phonemeStartIndex,
                 end: phonemeEndIndex,
             });
 
-            phonemeStartIndex = phonemeEndIndex + 1;
+            if (isThaiScript) {
+                count--;
+            }
+
+            phonemeStartIndex = count + 1;
         }
 
-        if (idx === engPhonemeScript.length - 1) {
+        if (idx === phonemeScript.length - 1) {
             phonemeStartEndList.push({
                 start: phonemeStartIndex,
-                end: idx + 1,
+                end: count + 1,
             });
         }
+
+        count++;
     });
 
     return phonemeStartEndList;
