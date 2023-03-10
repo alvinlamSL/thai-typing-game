@@ -1,6 +1,14 @@
-export const thaiScript: string = 'ส.วัส.ดี.ค่ะ';
+export const thaiPhonemeScripts: string[] = [
+    'ส.วัส.ดี.ค่ะ',
+    'ส.วัส.ดี.ครับ',
+    'ดิ.ฉัน.ชื่อ.สุ.นิ.สา.ค่ะ',
+];
 
-export const engScript: string = 'sa-wàt-dii khâ';
+export const engPhonemeScripts: string[] = [
+    'sa-wàt-dii khâ',
+    'sa-wàt-dii khráp',
+    'di-chán chûe sù-ní-sǎa khâ',
+];
 
 interface PressedKey {
     keyValue: string
