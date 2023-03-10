@@ -1,6 +1,6 @@
-export const thaiScript: string = 'ส.วัส.ดี';
+export const thaiScript: string = 'ส.วัส.ดี.ค่ะ';
 
-export const engScript: string = 'sa-wàt-dii';
+export const engScript: string = 'sa-wàt-dii khâ';
 
 interface PressedKey {
     keyValue: string
@@ -33,8 +33,8 @@ export const keyList: Record<string, PressedKey> = {
     d: { displayValue: 'ก', keyValue: 'd' },
     f: { displayValue: 'ด', keyValue: 'f' },
     g: { displayValue: 'เ', keyValue: 'g' },
-    h: { displayValue: ' ้', keyValue: 'h' },
-    j: { displayValue: ' ่', keyValue: 'j' },
+    h: { displayValue: '้', keyValue: 'h' },
+    j: { displayValue: '่', keyValue: 'j' },
     k: { displayValue: 'า', keyValue: 'k' },
     l: { displayValue: 'ส', keyValue: 'l' },
     z: { displayValue: 'ผ', keyValue: 'z' },
@@ -138,8 +138,8 @@ export const reverseLetterMap: Record<string, string> = {
     ก: 'd',
     ด: 'f',
     เ: 'g',
-    ' ้': 'h',
-    ' ่': 'j',
+    '้': 'h',
+    '่': 'j',
     า: 'k',
     ส: 'l',
     ผ: 'z',
