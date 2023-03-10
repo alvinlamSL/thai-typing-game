@@ -13,7 +13,7 @@ export const splitPhonemeScript = (
     let phonemeEndIndex = 0;
     let count = 0;
     phonemeScript.split('').forEach((char, idx) => {
-        if (char === '.' || char === '-') {
+        if (char === '.' || char === '-' || char === ' ') {
             phonemeEndIndex = count;
             phonemeStartEndList.push({
                 start: phonemeStartIndex,
