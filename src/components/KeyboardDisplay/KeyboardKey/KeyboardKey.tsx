@@ -7,18 +7,24 @@ export interface KeyboardKeyProps {
     mainText: string
     subText?: string
     isPressed?: boolean
+    isSuggested?: boolean
 }
 
 const KeyboardKey: React.FC<KeyboardKeyProps> = ({
     mainText,
     subText,
     isPressed = false,
+    isSuggested = false,
 }) => {
+    const bgColor = isPressed
+        ? '#B3A0FF'
+        : (isSuggested ? 'orange' : '#DCD3FF');
+
     return (
         <Box
             sx={{
                 ...styles.key,
-                background: isPressed ? '#B3A0FF' : '#DCD3FF'
+                background: bgColor
             }}
         >
             <Box sx={{ ...styles.mainText }}>{mainText}</Box>
