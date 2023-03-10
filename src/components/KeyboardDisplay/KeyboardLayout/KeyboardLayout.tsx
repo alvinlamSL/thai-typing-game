@@ -5,6 +5,7 @@ import KeyboardKey from '../KeyboardKey';
 import { keyboardRows, keyboardRowsShift } from './constants';
 
 import type { KeyboardKeyProps } from '../KeyboardKey/KeyboardKey';
+import type { SuggestedKey } from '../../../App';
 
 import styles from './KeyboardLayout.styles';
 
@@ -16,15 +17,21 @@ interface KeyboardRowKey {
 interface KeyboardRowProps {
     keyboardKeys: KeyboardRowKey[]
     isCapsOn: boolean
+    suggestedKey: SuggestedKey
     pressedKeys?: Record<string, boolean>
 };
 
 interface KeyboardLayoutProps {
     pressedKeys: Record<string, boolean>
     isCapsOn: boolean
+    suggestedKey: SuggestedKey
 }
 
-const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = {} }) => {
+const KeyboardRow: React.FC<KeyboardRowProps> = ({
+    keyboardKeys,
+    suggestedKey,
+    pressedKeys = {},
+}) => {
     return (
         <Grid container spacing={1} justifyContent="space-between">
             {keyboardKeys.map(({ keyProps, size }, idx) => (
@@ -36,6 +43,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = {
                     <KeyboardKey
                         {...keyProps}
                         isPressed={pressedKeys[keyProps.mainText] || pressedKeys[keyProps.subText ?? '']}
+                        isSuggested={suggestedKey.key === keyProps.subText}
                     />
                 </Grid>
             ))}
@@ -43,7 +51,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({ keyboardKeys, pressedKeys = {
     );
 };
 
-const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys, isCapsOn }) => {
+const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys, isCapsOn, suggestedKey }) => {
     const currentKeyboardRows = isCapsOn ? keyboardRowsShift : keyboardRows;
 
     return (
@@ -59,6 +67,7 @@ const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys, isCapsOn }
                         isCapsOn={isCapsOn}
                         keyboardKeys={row.keyboardKeys}
                         pressedKeys={pressedKeys}
+                        suggestedKey={suggestedKey}
                     />
                 </Grid>
             ))}

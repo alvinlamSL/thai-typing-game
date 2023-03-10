@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import KeyboardLayout from './KeyboardLayout';
 
-const KeyboardLayoutContainer: React.FC = () => {
+import { type SuggestedKey } from '../../../App';
+
+interface KeyboardLayoutContainerProps {
+    suggestedKey: SuggestedKey
+}
+
+const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({ suggestedKey }) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
     const [capsLockOn, setCapsLockOn] = useState<boolean>(false);
     const [shiftKeyDown, setShiftKeyDown] = useState<boolean>(false);
@@ -54,6 +60,7 @@ const KeyboardLayoutContainer: React.FC = () => {
         <KeyboardLayout
             pressedKeys={pressedKeysObj}
             isCapsOn={isCapsOn}
+            suggestedKey={suggestedKey}
         />
     );
 };
