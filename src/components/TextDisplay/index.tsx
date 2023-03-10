@@ -5,12 +5,15 @@ import {
     keyListShift,
     thaiScript,
     engScript,
+    reverseLetterMap,
+    reverseLetterMapCaps,
 } from './constants';
-
 import { splitPhonemeScript } from './utils';
-import { type PhonemeStartEnd } from './utils';
 
 import TextDisplay from './TextDisplay';
+
+import type { PhonemeStartEnd } from './utils';
+import type { SuggestedKey } from '../../App';
 
 interface TextState {
     lastLetter: string
@@ -26,7 +29,11 @@ interface TextState {
     thaiPhonemeStartEndList: PhonemeStartEnd[]
 };
 
-const TextDisplayContainer: React.FC = () => {
+interface TextDisplayContainerProps {
+    setSuggestedKey: (suggestedKey: SuggestedKey) => void
+}
+
+const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggestedKey }) => {
     const [textState, setTextState] = useState<TextState>({
         lastLetter: '',
         enteredText: '',
@@ -184,6 +191,21 @@ const TextDisplayContainer: React.FC = () => {
             document.removeEventListener('keyup', handleKeyUp);
         };
     }, []);
+
+    useEffect(() => {
+        const suggestedKey: SuggestedKey = { key: '', isCaps: false };
+        const { currThaiScriptLetterIndex, scriptString } = textState;
+        const currThaiScriptLetter = scriptString[currThaiScriptLetterIndex];
+
+        if (reverseLetterMap[currThaiScriptLetter]) {
+            suggestedKey.key = reverseLetterMap[currThaiScriptLetter];
+        } else if (reverseLetterMapCaps[currThaiScriptLetter]) {
+            suggestedKey.key = reverseLetterMapCaps[currThaiScriptLetter];
+            suggestedKey.isCaps = true;
+        }
+
+        setSuggestedKey(suggestedKey);
+    }, [textState.currThaiScriptLetterIndex]);
 
     const {
         engPhonemeStartEndList,
