@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import {
     keyList,
     keyListShift,
-    thaiScript,
-    engScript,
+    thaiPhonemeScripts,
+    engPhonemeScripts,
     reverseLetterMap,
     reverseLetterMapCaps,
 } from './constants';
@@ -20,13 +20,16 @@ interface TextState {
     enteredText: string
     shiftKeyDown: boolean
     capsLockOn: boolean
-    scriptString: string
     currThaiScriptLetterIndex: number
     currThaiPhonemeLetterIndex: number
     backspacesRequired: number
     phonemeStartEndIndex: number
     engPhonemeStartEndList: PhonemeStartEnd[]
     thaiPhonemeStartEndList: PhonemeStartEnd[]
+    currEngPhonemeScript: string
+    currThaiPhonemeScript: string
+    currThaiScript: string
+    currScriptIndex: number
 };
 
 interface TextDisplayContainerProps {
@@ -39,13 +42,16 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         enteredText: '',
         shiftKeyDown: false,
         capsLockOn: false,
-        scriptString: thaiScript.replaceAll('.', ''),
         currThaiScriptLetterIndex: 0,
         currThaiPhonemeLetterIndex: 0,
         backspacesRequired: 0,
         phonemeStartEndIndex: 0,
-        engPhonemeStartEndList: splitPhonemeScript(engScript),
-        thaiPhonemeStartEndList: splitPhonemeScript(thaiScript, true),
+        engPhonemeStartEndList: [],
+        thaiPhonemeStartEndList: [],
+        currEngPhonemeScript: '',
+        currThaiPhonemeScript: '',
+        currThaiScript: '',
+        currScriptIndex: 0,
     });
 
     const handleKeyDown = (event: any): void => {
@@ -57,17 +63,18 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
             const {
                 lastLetter,
                 enteredText,
-                scriptString,
                 backspacesRequired,
                 currThaiScriptLetterIndex,
                 currThaiPhonemeLetterIndex,
                 phonemeStartEndIndex,
+                currThaiScript,
+                currThaiPhonemeScript,
             } = prevState;
 
             const shouldDecreaseCurrScriptLetterIndex = (
                 (currThaiScriptLetterIndex > 0) &&
                 (backspacesRequired === 0) &&
-                (lastLetter === scriptString[currThaiScriptLetterIndex - 1])
+                (lastLetter === currThaiScript[currThaiScriptLetterIndex - 1])
             );
 
             let newThaiPhonemeLetterIndex = shouldDecreaseCurrScriptLetterIndex
@@ -75,7 +82,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
                 : currThaiPhonemeLetterIndex;
 
             let newPhonemeStartEndIndex = phonemeStartEndIndex;
-            if (thaiScript[newThaiPhonemeLetterIndex] === '.') {
+            if (currThaiPhonemeScript[newThaiPhonemeLetterIndex] === '.') {
                 newThaiPhonemeLetterIndex--;
                 newPhonemeStartEndIndex--;
             }
@@ -126,6 +133,17 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
                 });
             }
 
+            if (currThaiScriptLetterIndex === currThaiScript.length && keyValue === 'enter') {
+                return ({
+                    ...prevState,
+                    currScriptIndex: prevState.currScriptIndex + 1,
+                });
+            }
+
+            if (currThaiScriptLetterIndex === currThaiScript.length) {
+                return prevState;
+            }
+
             // If no valid key is pressed
             if (!keyList[keyValue]) {
                 return prevState;
@@ -135,7 +153,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
                 ? keyListShift
                 : keyList;
 
-            const currThaiScriptLetter = scriptString[currThaiScriptLetterIndex];
+            const currThaiScriptLetter = currThaiScript[currThaiScriptLetterIndex];
 
             // Where we are on the thai script
             let newScriptLetterIndex = currThaiScriptLetterIndex;
@@ -149,7 +167,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
                 newBackspacesRequired++;
             }
 
-            if (thaiScript[newThaiPhonemeLetterIndex] === '.') {
+            if (currThaiPhonemeScript[newThaiPhonemeLetterIndex] === '.') {
                 newThaiPhonemeLetterIndex++;
                 newPhonemeStartEndIndex++;
             }
@@ -183,6 +201,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         }
     };
 
+    // Init key up/down listeners
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
         document.addEventListener('keyup', handleKeyUp);
@@ -192,10 +211,45 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         };
     }, []);
 
+    // Init scripts
+    useEffect(() => {
+        const { currScriptIndex } = textState;
+        if (currScriptIndex === engPhonemeScripts.length) {
+            return;
+        }
+
+        const newThaiPhonemeScript = thaiPhonemeScripts[currScriptIndex];
+        const newEngPhonemeScript = engPhonemeScripts[currScriptIndex];
+
+        setTextState(prevState => ({
+            ...prevState,
+            currEngPhonemeScript: newEngPhonemeScript,
+            currThaiPhonemeScript: newThaiPhonemeScript,
+            currThaiScript: newThaiPhonemeScript.replaceAll('.', ''),
+        }));
+    }, [textState.currScriptIndex]);
+
+    // Reset state when script changes
+    useEffect(() => {
+        const { currEngPhonemeScript, currThaiPhonemeScript } = textState;
+        setTextState(prevState => ({
+            ...prevState,
+            lastLetter: '',
+            enteredText: '',
+            currThaiScriptLetterIndex: 0,
+            currThaiPhonemeLetterIndex: 0,
+            backspacesRequired: 0,
+            phonemeStartEndIndex: 0,
+            engPhonemeStartEndList: splitPhonemeScript(currEngPhonemeScript),
+            thaiPhonemeStartEndList: splitPhonemeScript(currThaiPhonemeScript, true),
+        }));
+    }, [textState.currEngPhonemeScript]);
+
+    // Update phoneme indexes when correct key typed
     useEffect(() => {
         const suggestedKey: SuggestedKey = { key: '', isCaps: false };
-        const { currThaiScriptLetterIndex, scriptString } = textState;
-        const currThaiScriptLetter = scriptString[currThaiScriptLetterIndex];
+        const { currThaiScriptLetterIndex, currThaiScript } = textState;
+        const currThaiScriptLetter = currThaiScript[currThaiScriptLetterIndex];
 
         if (reverseLetterMap[currThaiScriptLetter]) {
             suggestedKey.key = reverseLetterMap[currThaiScriptLetter];
@@ -205,7 +259,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         }
 
         setSuggestedKey(suggestedKey);
-    }, [textState.currThaiScriptLetterIndex]);
+    }, [textState.currThaiScriptLetterIndex, textState.currThaiScript]);
 
     const {
         engPhonemeStartEndList,
@@ -216,18 +270,19 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
     const {
         start: engPhonemeStartIndex,
         end: engPhonemeEndIndex
-    } = engPhonemeStartEndList[phonemeStartEndIndex];
+    } = engPhonemeStartEndList[phonemeStartEndIndex] ?? { start: 0, end: 0 };
 
     const {
         start: thaiPhonemeStartIndex,
         end: thaiPhonemeEndIndex
-    } = thaiPhonemeStartEndList[phonemeStartEndIndex];
+    } = thaiPhonemeStartEndList[phonemeStartEndIndex] ?? { start: 0, end: 0 };
 
     return (
         <TextDisplay
             enteredText={textState.enteredText}
             lastLetter={textState.lastLetter}
-            thaiScript={textState.scriptString}
+            thaiScript={textState.currThaiScript}
+            engPhonemeScript={textState.currEngPhonemeScript}
             engPhonemeStartIndex={engPhonemeStartIndex}
             engPhonemeEndIndex={engPhonemeEndIndex}
             thaiPhonemeStartIndex={thaiPhonemeStartIndex}

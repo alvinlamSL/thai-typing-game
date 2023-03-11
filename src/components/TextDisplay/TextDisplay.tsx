@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 
-import { engScript, compoundLetters } from './constants';
+import { compoundLetters } from './constants';
 
 import styles from './TextDisplay.styles';
 
@@ -10,6 +10,7 @@ interface TextDisplayProps {
     enteredText: string
     lastLetter: string
     thaiScript: string
+    engPhonemeScript: string
     engPhonemeStartIndex: number
     engPhonemeEndIndex: number
     thaiPhonemeStartIndex: number
@@ -25,6 +26,7 @@ interface ThaiScriptDisplayProps {
 }
 
 interface EngScriptDisplayProps {
+    engPhonemeScript: string
     engPhonemeStartIndex: number
     engPhonemeEndIndex: number
 }
@@ -82,6 +84,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
 };
 
 const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({
+    engPhonemeScript,
     engPhonemeStartIndex,
     engPhonemeEndIndex,
 }) => {
@@ -94,13 +97,13 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({
             }}
         >
             <Box component='span'>
-                {engScript.slice(0, engPhonemeStartIndex)}
+                {engPhonemeScript.slice(0, engPhonemeStartIndex)}
             </Box>
             <Box component='span' sx={{ background: '#ffffe0', color: 'black' }}>
-                {engScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
+                {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
             </Box>
             <Box component='span'>
-                {engScript.slice(engPhonemeEndIndex)}
+                {engPhonemeScript.slice(engPhonemeEndIndex)}
             </Box>
         </Grid>
     );
@@ -110,6 +113,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
     enteredText,
     lastLetter,
     thaiScript,
+    engPhonemeScript,
     engPhonemeStartIndex,
     engPhonemeEndIndex,
     thaiPhonemeStartIndex,
@@ -128,6 +132,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
                     thaiPhonemeEndIndex={thaiPhonemeEndIndex}
                 />
                 <EngScriptDisplay
+                    engPhonemeScript={engPhonemeScript}
                     engPhonemeStartIndex={engPhonemeStartIndex}
                     engPhonemeEndIndex={engPhonemeEndIndex}
                 />
