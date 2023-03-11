@@ -28,10 +28,16 @@ interface KeyboardLayoutProps {
 }
 
 const KeyboardRow: React.FC<KeyboardRowProps> = ({
+    isCapsOn,
     keyboardKeys,
     suggestedKey,
     pressedKeys = {},
 }) => {
+    let keyToHighlight = suggestedKey.key;
+    if (isCapsOn !== suggestedKey.isCaps) {
+        keyToHighlight = 'shift';
+    }
+
     return (
         <Grid container spacing={1} justifyContent="space-between">
             {keyboardKeys.map(({ keyProps, size }, idx) => (
@@ -43,7 +49,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
                     <KeyboardKey
                         {...keyProps}
                         isPressed={pressedKeys[keyProps.mainText] || pressedKeys[keyProps.subText ?? '']}
-                        isSuggested={suggestedKey.key === keyProps.subText}
+                        isSuggested={keyToHighlight === keyProps.subText || keyToHighlight === keyProps.mainText}
                     />
                 </Grid>
             ))}
