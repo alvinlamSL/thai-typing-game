@@ -29,6 +29,7 @@ interface TextState {
     currEngPhonemeScript: string
     currThaiPhonemeScript: string
     currThaiScript: string
+    currScriptIndex: number
 };
 
 interface TextDisplayContainerProps {
@@ -50,6 +51,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         currEngPhonemeScript: '',
         currThaiPhonemeScript: '',
         currThaiScript: '',
+        currScriptIndex: 0,
     });
 
     const handleKeyDown = (event: any): void => {
@@ -131,6 +133,17 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
                 });
             }
 
+            if (currThaiScriptLetterIndex === currThaiScript.length && keyValue === 'enter') {
+                return ({
+                    ...prevState,
+                    currScriptIndex: prevState.currScriptIndex + 1,
+                });
+            }
+
+            if (currThaiScriptLetterIndex === currThaiScript.length) {
+                return prevState;
+            }
+
             // If no valid key is pressed
             if (!keyList[keyValue]) {
                 return prevState;
@@ -200,22 +213,33 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
 
     // Init scripts
     useEffect(() => {
-        const firstThaiPhonemeScript = thaiPhonemeScripts[0];
-        const firstEngPhonemeScript = engPhonemeScripts[0];
+        const { currScriptIndex } = textState;
+        if (currScriptIndex === engPhonemeScripts.length) {
+            return;
+        }
+
+        const newThaiPhonemeScript = thaiPhonemeScripts[currScriptIndex];
+        const newEngPhonemeScript = engPhonemeScripts[currScriptIndex];
 
         setTextState(prevState => ({
             ...prevState,
-            currEngPhonemeScript: firstEngPhonemeScript,
-            currThaiPhonemeScript: firstThaiPhonemeScript,
-            currThaiScript: firstThaiPhonemeScript.replaceAll('.', ''),
+            currEngPhonemeScript: newEngPhonemeScript,
+            currThaiPhonemeScript: newThaiPhonemeScript,
+            currThaiScript: newThaiPhonemeScript.replaceAll('.', ''),
         }));
-    }, []);
+    }, [textState.currScriptIndex]);
 
-    // Update phoneme startEnd index lists when script changes
+    // Reset state when script changes
     useEffect(() => {
         const { currEngPhonemeScript, currThaiPhonemeScript } = textState;
         setTextState(prevState => ({
             ...prevState,
+            lastLetter: '',
+            enteredText: '',
+            currThaiScriptLetterIndex: 0,
+            currThaiPhonemeLetterIndex: 0,
+            backspacesRequired: 0,
+            phonemeStartEndIndex: 0,
             engPhonemeStartEndList: splitPhonemeScript(currEngPhonemeScript),
             thaiPhonemeStartEndList: splitPhonemeScript(currThaiPhonemeScript, true),
         }));
