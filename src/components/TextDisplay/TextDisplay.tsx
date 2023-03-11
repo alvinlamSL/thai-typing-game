@@ -38,6 +38,13 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     thaiPhonemeStartIndex,
     thaiPhonemeEndIndex,
 }) => {
+    let highlightEnteredTextEndIndex = enteredText.length;
+    let isCompoundLetter = compoundLetters.includes(lastEnteredLetter);
+    while (isCompoundLetter) {
+        highlightEnteredTextEndIndex--;
+        isCompoundLetter = compoundLetters.includes(enteredText[highlightEnteredTextEndIndex]);
+    }
+
     return (
         <Grid
             item
@@ -56,26 +63,12 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
                 {thaiScript.slice(thaiPhonemeEndIndex)}
             </Box>
             <div/>
-            {compoundLetters.includes(lastEnteredLetter) && (
-                <>
-                    <Box component='span'>
-                        {enteredText.slice(0, -1)}
-                    </Box>
-                    <Box component='span' sx={{ color: '#00ff00' }}>
-                        {`${enteredText[enteredText.length - 1] ?? ''}${lastEnteredLetter}`}
-                    </Box>
-                </>
-            )}
-            {!compoundLetters.includes(lastEnteredLetter) && (
-                <>
-                    <Box component='span'>
-                        {enteredText}
-                    </Box>
-                    <Box component='span' sx={{ color: '#00ff00' }}>
-                        {lastEnteredLetter}
-                    </Box>
-                </>
-            )}
+            <Box component='span'>
+                {enteredText.slice(0, highlightEnteredTextEndIndex)}
+            </Box>
+            <Box component='span' sx={{ color: '#00ff00' }}>
+                {`${enteredText.slice(highlightEnteredTextEndIndex)}${lastEnteredLetter}`}
+            </Box>
             <Box component='span' sx={{ ...styles?.blinkingCursor }}>
                 |
             </Box>
