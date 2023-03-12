@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/thai-typing-game/static/css/main.073c9b0a.css",
+    "main.js": "/thai-typing-game/static/js/main.fd5a3dab.js",
+    "index.html": "/thai-typing-game/index.html",
+    "main.073c9b0a.css.map": "/thai-typing-game/static/css/main.073c9b0a.css.map",
+    "main.fd5a3dab.js.map": "/thai-typing-game/static/js/main.fd5a3dab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.fd5a3dab.js"
+  ]
+}
