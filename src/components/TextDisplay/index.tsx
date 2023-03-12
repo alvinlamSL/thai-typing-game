@@ -5,6 +5,7 @@ import {
     keyListShift,
     thaiPhonemeScripts,
     engPhonemeScripts,
+    engScripts,
     reverseLetterMap,
     reverseLetterMapCaps,
 } from './constants';
@@ -27,6 +28,7 @@ interface TextState {
     engPhonemeStartEndList: PhonemeStartEnd[]
     thaiPhonemeStartEndList: PhonemeStartEnd[]
     currEngPhonemeScript: string
+    currEngScript: string
     currThaiPhonemeScript: string
     currThaiScript: string
     currScriptIndex: number
@@ -49,6 +51,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         engPhonemeStartEndList: [],
         thaiPhonemeStartEndList: [],
         currEngPhonemeScript: '',
+        currEngScript: '',
         currThaiPhonemeScript: '',
         currThaiScript: '',
         currScriptIndex: 0,
@@ -220,10 +223,12 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
 
         const newThaiPhonemeScript = thaiPhonemeScripts[currScriptIndex];
         const newEngPhonemeScript = engPhonemeScripts[currScriptIndex];
+        const newEngScript = engScripts[currScriptIndex];
 
         setTextState(prevState => ({
             ...prevState,
             currEngPhonemeScript: newEngPhonemeScript,
+            currEngScript: newEngScript,
             currThaiPhonemeScript: newThaiPhonemeScript,
             currThaiScript: newThaiPhonemeScript.replaceAll('.', ''),
         }));
@@ -292,6 +297,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
             enteredText={textState.enteredText}
             lastLetter={textState.lastLetter}
             thaiScript={textState.currThaiScript}
+            engScript={textState.currEngScript}
             engPhonemeScript={textState.currEngPhonemeScript}
             engPhonemeStartIndex={engPhonemeStartIndex}
             engPhonemeEndIndex={engPhonemeEndIndex}

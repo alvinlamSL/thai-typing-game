@@ -10,6 +10,12 @@ export const engPhonemeScripts: string[] = [
     'di-chán chûe sù-ní-sǎa khâ',
 ];
 
+export const engScripts: string[] = [
+    'hello (female speaker)',
+    'hello (male speaker)',
+    'my name is Sunisa (female speaker)',
+];
+
 interface PressedKey {
     keyValue: string
     displayValue: string
