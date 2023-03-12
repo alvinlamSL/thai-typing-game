@@ -10,6 +10,7 @@ interface TextDisplayProps {
     enteredText: string
     lastLetter: string
     thaiScript: string
+    engScript: string
     engPhonemeScript: string
     engPhonemeStartIndex: number
     engPhonemeEndIndex: number
@@ -27,10 +28,14 @@ interface ThaiScriptDisplayProps {
     backspacesRequired: number
 }
 
-interface EngScriptDisplayProps {
+interface EngPhonemeScriptDisplayProps {
     engPhonemeScript: string
     engPhonemeStartIndex: number
     engPhonemeEndIndex: number
+}
+
+interface EngScriptDisplayProps {
+    engScript: string
 }
 
 const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
@@ -60,7 +65,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
             item
             sx={{
                 ...styles?.textBox,
-                height: '65%',
+                height: '45%',
             }}
         >
             <Box component='span'>
@@ -86,7 +91,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     );
 };
 
-const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({
+const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
     engPhonemeScript,
     engPhonemeStartIndex,
     engPhonemeEndIndex,
@@ -96,7 +101,7 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({
             item
             sx={{
                 ...styles?.textBox,
-                height: '30%',
+                height: '25%',
             }}
         >
             <Box component='span'>
@@ -112,10 +117,25 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({
     );
 };
 
+const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
+    return (
+        <Grid
+            item
+            sx={{
+                ...styles?.textBox,
+                height: '25%',
+            }}
+        >
+            {engScript}
+        </Grid>
+    );
+};
+
 const TextDisplay: React.FC<TextDisplayProps> = ({
     enteredText,
     lastLetter,
     thaiScript,
+    engScript,
     engPhonemeScript,
     engPhonemeStartIndex,
     engPhonemeEndIndex,
@@ -136,11 +156,12 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
                     thaiPhonemeEndIndex={thaiPhonemeEndIndex}
                     backspacesRequired={backspacesRequired}
                 />
-                <EngScriptDisplay
+                <EngPhonemeScriptDisplay
                     engPhonemeScript={engPhonemeScript}
                     engPhonemeStartIndex={engPhonemeStartIndex}
                     engPhonemeEndIndex={engPhonemeEndIndex}
                 />
+                <EngScriptDisplay engScript={engScript} />
             </Grid>
         </Box>
     );
