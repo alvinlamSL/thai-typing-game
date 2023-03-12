@@ -248,10 +248,16 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
     // Update phoneme indexes when correct key typed
     useEffect(() => {
         const suggestedKey: SuggestedKey = { key: '', isCaps: false };
-        const { currThaiScriptLetterIndex, currThaiScript } = textState;
+        const {
+            backspacesRequired,
+            currThaiScriptLetterIndex,
+            currThaiScript
+        } = textState;
         const currThaiScriptLetter = currThaiScript[currThaiScriptLetterIndex];
 
-        if (reverseLetterMap[currThaiScriptLetter]) {
+        if (backspacesRequired) {
+            suggestedKey.key = 'backspace';
+        } else if (reverseLetterMap[currThaiScriptLetter]) {
             suggestedKey.key = reverseLetterMap[currThaiScriptLetter];
         } else if (reverseLetterMapCaps[currThaiScriptLetter]) {
             suggestedKey.key = reverseLetterMapCaps[currThaiScriptLetter];
@@ -259,7 +265,11 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         }
 
         setSuggestedKey(suggestedKey);
-    }, [textState.currThaiScriptLetterIndex, textState.currThaiScript]);
+    }, [
+        textState.currThaiScriptLetterIndex,
+        textState.currThaiScript,
+        textState.backspacesRequired,
+    ]);
 
     const {
         engPhonemeStartEndList,
@@ -287,6 +297,7 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
             engPhonemeEndIndex={engPhonemeEndIndex}
             thaiPhonemeStartIndex={thaiPhonemeStartIndex}
             thaiPhonemeEndIndex={thaiPhonemeEndIndex}
+            backspacesRequired={textState.backspacesRequired}
         />
     );
 };

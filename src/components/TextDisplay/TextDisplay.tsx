@@ -15,6 +15,7 @@ interface TextDisplayProps {
     engPhonemeEndIndex: number
     thaiPhonemeStartIndex: number
     thaiPhonemeEndIndex: number
+    backspacesRequired: number
 }
 
 interface ThaiScriptDisplayProps {
@@ -23,6 +24,7 @@ interface ThaiScriptDisplayProps {
     thaiScript: string
     thaiPhonemeStartIndex: number
     thaiPhonemeEndIndex: number
+    backspacesRequired: number
 }
 
 interface EngScriptDisplayProps {
@@ -37,14 +39,22 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     thaiScript,
     thaiPhonemeStartIndex,
     thaiPhonemeEndIndex,
+    backspacesRequired,
 }) => {
-    let highlightEnteredTextEndIndex = enteredText.length;
-    let isCompoundLetter = compoundLetters.includes(lastEnteredLetter);
-    while (isCompoundLetter) {
-        highlightEnteredTextEndIndex--;
-        isCompoundLetter = compoundLetters.includes(enteredText[highlightEnteredTextEndIndex]);
+    let highlightEnteredTextStartIndex = enteredText.length;
+    if (backspacesRequired > 0) {
+        highlightEnteredTextStartIndex -= backspacesRequired - 1;
     }
 
+    let isCompoundLetter = backspacesRequired > 1
+        ? compoundLetters.includes(enteredText[highlightEnteredTextStartIndex])
+        : compoundLetters.includes(lastEnteredLetter);
+    while (isCompoundLetter && highlightEnteredTextStartIndex > 0) {
+        highlightEnteredTextStartIndex--;
+        isCompoundLetter = compoundLetters.includes(enteredText[highlightEnteredTextStartIndex]);
+    }
+
+    const letterHighlightColour = backspacesRequired > 0 ? '#FF6161' : '#00ff00';
     return (
         <Grid
             item
@@ -64,10 +74,10 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
             </Box>
             <div/>
             <Box component='span'>
-                {enteredText.slice(0, highlightEnteredTextEndIndex)}
+                {enteredText.slice(0, highlightEnteredTextStartIndex)}
             </Box>
-            <Box component='span' sx={{ color: '#00ff00' }}>
-                {`${enteredText.slice(highlightEnteredTextEndIndex)}${lastEnteredLetter}`}
+            <Box component='span' sx={{ color: letterHighlightColour }}>
+                {`${enteredText.slice(highlightEnteredTextStartIndex)}${lastEnteredLetter}`}
             </Box>
             <Box component='span' sx={{ ...styles?.blinkingCursor }}>
                 |
@@ -111,6 +121,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
     engPhonemeEndIndex,
     thaiPhonemeStartIndex,
     thaiPhonemeEndIndex,
+    backspacesRequired,
 }) => {
     return (
         <Box
@@ -123,6 +134,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
                     thaiScript={thaiScript}
                     thaiPhonemeStartIndex={thaiPhonemeStartIndex}
                     thaiPhonemeEndIndex={thaiPhonemeEndIndex}
+                    backspacesRequired={backspacesRequired}
                 />
                 <EngScriptDisplay
                     engPhonemeScript={engPhonemeScript}
