@@ -3,21 +3,22 @@ import { type SxProps } from '@mui/system';
 const styles: Record<string, SxProps> = {
     key: {
         position: 'relative',
-        height: '3em',
+        height: { xs: '2em', md: '3em' },
         border: 'solid grey',
-        borderWidth: '2px',
-        borderRadius: '8px',
+        borderWidth: { xs: '0.5px', md: '2px' },
+        borderRadius: { xs: '4px', md: '8px' },
     },
     mainText: {
         position: 'relative',
-        top: '35%',
-        fontWeight: 'bold',
+        top: { xs: '35%', md: '35%' },
+        fontWeight: { xs: 'normal', md: 'bold' },
+        fontSize: { xs: '0.8em', md: '1em' },
     },
     subText: {
         position: 'absolute',
         top: '0px',
         left: '5px',
-        fontSize: '0.7em',
+        fontSize: { xs: '0.6em', md: '0.7em' },
     },
 };
 

@@ -39,7 +39,14 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
     }
 
     return (
-        <Grid container spacing={1} justifyContent="space-between">
+        <Grid
+            container
+            spacing={{
+                xs: 0.1,
+                md: 1,
+            }}
+            justifyContent="space-between"
+        >
             {keyboardKeys.map(({ keyProps, size }, idx) => (
                 <Grid
                     key={`${keyProps.mainText}_${idx}`}
