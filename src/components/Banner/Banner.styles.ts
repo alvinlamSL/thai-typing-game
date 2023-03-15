@@ -2,7 +2,7 @@ import { type SxProps } from '@mui/system';
 
 const styles: Record<string, SxProps> = {
     main: {
-        height: '120px',
+        height: { xs: '80px', md: '120px' },
         bgcolor: 'green',
     },
 };
