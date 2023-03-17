@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Grid, useMediaQuery } from '@mui/material';
 
 import KeyboardKey from '../KeyboardKey';
-import { keyboardRows, keyboardRowsShift } from './constants';
+import { keyboardRows, keyboardRowsM, keyboardRowsShift } from './constants';
 
 import type { KeyboardKeyProps } from '../KeyboardKey/KeyboardKey';
 import type { SuggestedKey } from '../../../App';
@@ -17,6 +18,7 @@ interface KeyboardRowKey {
 interface KeyboardRowProps {
     keyboardKeys: KeyboardRowKey[]
     isCapsOn: boolean
+    isMobile: boolean
     suggestedKey: SuggestedKey
     pressedKeys?: Record<string, boolean>
 };
@@ -29,6 +31,7 @@ interface KeyboardLayoutProps {
 
 const KeyboardRow: React.FC<KeyboardRowProps> = ({
     isCapsOn,
+    isMobile,
     keyboardKeys,
     suggestedKey,
     pressedKeys = {},
@@ -42,10 +45,10 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
         <Grid
             container
             spacing={{
-                xs: 0.1,
+                xs: 0.5,
                 md: 1,
             }}
-            justifyContent="space-between"
+            justifyContent={isMobile ? 'center' : 'space-between'}
         >
             {keyboardKeys.map(({ keyProps, size }, idx) => (
                 <Grid
@@ -65,7 +68,11 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
 };
 
 const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys, isCapsOn, suggestedKey }) => {
-    const currentKeyboardRows = isCapsOn ? keyboardRowsShift : keyboardRows;
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const currentKeyboardRows = isMobile
+        ? (isCapsOn ? keyboardRowsShift : keyboardRowsM)
+        : (isCapsOn ? keyboardRowsShift : keyboardRows);
 
     return (
         <Grid
@@ -78,6 +85,7 @@ const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({ pressedKeys, isCapsOn, 
                 <Grid item key={idx}>
                     <KeyboardRow
                         isCapsOn={isCapsOn}
+                        isMobile={isMobile}
                         keyboardKeys={row.keyboardKeys}
                         pressedKeys={pressedKeys}
                         suggestedKey={suggestedKey}

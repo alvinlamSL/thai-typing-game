@@ -20,6 +20,13 @@ const styles: Record<string, SxProps> = {
         left: '5px',
         fontSize: { xs: '0.6em', md: '0.7em' },
     },
+    iconContainer: {
+        position: 'relative',
+        top: '25%',
+    },
+    icon: {
+        fontSize: '0.8em',
+    }
 };
 
 export default styles;

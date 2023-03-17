@@ -1,6 +1,7 @@
 export interface KeyboardKey {
     mainText: string
     subText?: string
+    iconName?: string
 }
 
 export interface KeyboardRowKey {
@@ -170,6 +171,87 @@ const keyboardRow9: KeyboardRow = {
     ]
 };
 
+// row 1 for mobile
+const keyboardRow1M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: 'ๅ', subText: '1' }, size: 0.9 },
+        { keyProps: { mainText: 'ฃ', subText: '2' }, size: 0.9 },
+        { keyProps: { mainText: '-', subText: '3' }, size: 0.9 },
+        { keyProps: { mainText: 'ภ', subText: '4' }, size: 0.9 },
+        { keyProps: { mainText: 'ถ', subText: '5' }, size: 0.9 },
+        { keyProps: { mainText: ' ุ', subText: '6' }, size: 0.9 },
+        { keyProps: { mainText: ' ึ', subText: '7' }, size: 0.9 },
+        { keyProps: { mainText: 'ค', subText: '8' }, size: 0.9 },
+        { keyProps: { mainText: 'ต', subText: '9' }, size: 0.9 },
+        { keyProps: { mainText: 'จ', subText: '0' }, size: 0.9 },
+        { keyProps: { mainText: 'ข', subText: '-' }, size: 0.9 },
+        { keyProps: { mainText: 'ช', subText: '=' }, size: 0.9 },
+    ]
+};
+
+// row 2 for mobile
+const keyboardRow2M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: 'ๆ', subText: 'q' }, size: 0.9 },
+        { keyProps: { mainText: 'ไ', subText: 'w' }, size: 0.9 },
+        { keyProps: { mainText: ' ำ', subText: 'e' }, size: 0.9 },
+        { keyProps: { mainText: 'พ', subText: 'r' }, size: 0.9 },
+        { keyProps: { mainText: 'ะ', subText: 't' }, size: 0.9 },
+        { keyProps: { mainText: ' ั', subText: 'y' }, size: 0.9 },
+        { keyProps: { mainText: ' ี', subText: 'u' }, size: 0.9 },
+        { keyProps: { mainText: 'ร', subText: 'i' }, size: 0.9 },
+        { keyProps: { mainText: 'น', subText: 'o' }, size: 0.9 },
+        { keyProps: { mainText: 'ย', subText: 'p' }, size: 0.9 },
+        { keyProps: { mainText: 'บ', subText: '[' }, size: 0.9 },
+        { keyProps: { mainText: 'ล', subText: ']' }, size: 0.9 },
+    ]
+};
+
+// row 3 for mobile
+const keyboardRow3M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: 'ฟ', subText: 'a' }, size: 0.9 },
+        { keyProps: { mainText: 'ห', subText: 's' }, size: 0.9 },
+        { keyProps: { mainText: 'ก', subText: 'd' }, size: 0.9 },
+        { keyProps: { mainText: 'ด', subText: 'f' }, size: 0.9 },
+        { keyProps: { mainText: 'เ', subText: 'g' }, size: 0.9 },
+        { keyProps: { mainText: ' ้', subText: 'h' }, size: 0.9 },
+        { keyProps: { mainText: ' ่', subText: 'j' }, size: 0.9 },
+        { keyProps: { mainText: 'า', subText: 'k' }, size: 0.9 },
+        { keyProps: { mainText: 'ส', subText: 'l' }, size: 0.9 },
+        { keyProps: { mainText: 'ว', subText: ';' }, size: 0.9 },
+        { keyProps: { mainText: 'ง', subText: '\'' }, size: 0.9 },
+    ]
+};
+
+// row 4 for mobile
+const keyboardRow4M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: 'capslock', iconName: 'capslock' }, size: 0.8 },
+        { keyProps: { mainText: 'ผ', subText: 'z' }, size: 0.8 },
+        { keyProps: { mainText: 'ป', subText: 'x' }, size: 0.8 },
+        { keyProps: { mainText: 'แ', subText: 'c' }, size: 0.8 },
+        { keyProps: { mainText: 'อ', subText: 'v' }, size: 0.8 },
+        { keyProps: { mainText: ' ิ', subText: 'b' }, size: 0.8 },
+        { keyProps: { mainText: ' ื', subText: 'n' }, size: 0.8 },
+        { keyProps: { mainText: 'ท', subText: 'm' }, size: 0.8 },
+        { keyProps: { mainText: 'ม', subText: ',' }, size: 0.8 },
+        { keyProps: { mainText: 'ใ', subText: '.' }, size: 0.8 },
+        { keyProps: { mainText: 'ฝ', subText: '/' }, size: 0.8 },
+        { keyProps: { mainText: 'backspace', iconName: 'backspace' }, size: 1.6 },
+    ]
+};
+
+// row 5 for mobile
+const keyboardRow5M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: ',' }, size: 1 },
+        { keyProps: { mainText: 'space' }, size: 6 },
+        { keyProps: { mainText: '.' }, size: 1 },
+        { keyProps: { mainText: 'enter', subText: '', iconName: 'enter' }, size: 1.6 },
+    ]
+};
+
 export const keyboardRows: KeyboardRow[] = [
     keyboardRow1,
     keyboardRow2,
@@ -184,4 +266,12 @@ export const keyboardRowsShift: KeyboardRow[] = [
     keyboardRow8,
     keyboardRow9,
     keyboardRow5,
+];
+
+export const keyboardRowsM: KeyboardRow[] = [
+    keyboardRow1M,
+    keyboardRow2M,
+    keyboardRow3M,
+    keyboardRow4M,
+    keyboardRow5M,
 ];
