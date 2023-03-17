@@ -26,6 +26,16 @@ const styles: Record<string, SxProps> = {
     blinkingCursor: {
         animation: `${blink} 1s steps(5,start) infinite`,
     },
+    textHighlight: {
+        color: '#006600'
+    },
+    textHighlightError: {
+        color: '#B30000'
+    },
+    phonemeHighlight: {
+        background: '#E7CBA9',
+        color: 'black',
+    },
 };
 
 export default styles;
