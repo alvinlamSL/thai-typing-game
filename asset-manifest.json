@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/thai-typing-game/static/css/main.073c9b0a.css",
-    "main.js": "/thai-typing-game/static/js/main.f621502e.js",
+    "main.js": "/thai-typing-game/static/js/main.94791882.js",
     "index.html": "/thai-typing-game/index.html",
     "main.073c9b0a.css.map": "/thai-typing-game/static/css/main.073c9b0a.css.map",
-    "main.f621502e.js.map": "/thai-typing-game/static/js/main.f621502e.js.map"
+    "main.94791882.js.map": "/thai-typing-game/static/js/main.94791882.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.f621502e.js"
+    "static/js/main.94791882.js"
   ]
 }
