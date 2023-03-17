@@ -5,11 +5,8 @@ const blink = keyframes`from,to{color:transparent}50%{color:#000}`;
 
 const styles: Record<string, SxProps> = {
     main: {
-        height: {
-            xs: 'calc(40vh - 40px - 32px)',
-            md: 'calc(40vh - 60px - 32px)'
-        },
-        padding: 2,
+        height: 'calc(40vh - 60px - 32px)',
+        padding: { xs: 1, md: 2 },
     },
     textBox: {
         width: '100%',

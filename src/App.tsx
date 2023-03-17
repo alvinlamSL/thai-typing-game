@@ -6,6 +6,8 @@ import Banner from './components/Banner';
 import TextDisplay from './components/TextDisplay/index';
 import KeyboardDisplay from './components/KeyboardDisplay';
 
+import styles from './App.styles';
+
 export interface SuggestedKey {
     key: string
     isCaps: boolean
@@ -16,7 +18,7 @@ const App: React.FC = () => {
 
     return (
         <div className="App">
-            <Container maxWidth="md">
+            <Container sx={{ ...styles?.appContainer }} maxWidth="md">
                 <Banner/>
                 <TextDisplay setSuggestedKey={setSuggestedKey} />
                 <KeyboardDisplay suggestedKey={suggestedKey} />
