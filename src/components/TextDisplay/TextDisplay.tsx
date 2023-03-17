@@ -59,7 +59,6 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
         isCompoundLetter = compoundLetters.includes(enteredText[highlightEnteredTextStartIndex]);
     }
 
-    const letterHighlightColour = backspacesRequired > 0 ? '#FF6161' : '#00ff00';
     return (
         <Grid
             item
@@ -71,7 +70,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
             <Box component='span'>
                 {thaiScript.slice(0, thaiPhonemeStartIndex)}
             </Box>
-            <Box component='span' sx={{ background: '#ffffe0', color: 'black' }}>
+            <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
                 {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
             </Box>
             <Box component='span'>
@@ -81,7 +80,11 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
             <Box component='span'>
                 {enteredText.slice(0, highlightEnteredTextStartIndex)}
             </Box>
-            <Box component='span' sx={{ color: letterHighlightColour }}>
+            <Box component='span' sx={
+                backspacesRequired > 0
+                    ? { ...styles?.textHighlightError }
+                    : { ...styles?.textHighlight }
+            }>
                 {`${enteredText.slice(highlightEnteredTextStartIndex)}${lastEnteredLetter}`}
             </Box>
             <Box component='span' sx={{ ...styles?.blinkingCursor }}>
@@ -107,7 +110,7 @@ const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
             <Box component='span'>
                 {engPhonemeScript.slice(0, engPhonemeStartIndex)}
             </Box>
-            <Box component='span' sx={{ background: '#ffffe0', color: 'black' }}>
+            <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
                 {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
             </Box>
             <Box component='span'>
