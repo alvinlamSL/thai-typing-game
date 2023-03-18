@@ -174,71 +174,71 @@ const keyboardRow9: KeyboardRow = {
 // row 1 for mobile
 const keyboardRow1M: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'ๅ', subText: '1' }, size: 0.9 },
-        { keyProps: { mainText: 'ฃ', subText: '2' }, size: 0.9 },
-        { keyProps: { mainText: '-', subText: '3' }, size: 0.9 },
-        { keyProps: { mainText: 'ภ', subText: '4' }, size: 0.9 },
-        { keyProps: { mainText: 'ถ', subText: '5' }, size: 0.9 },
-        { keyProps: { mainText: ' ุ', subText: '6' }, size: 0.9 },
-        { keyProps: { mainText: ' ึ', subText: '7' }, size: 0.9 },
-        { keyProps: { mainText: 'ค', subText: '8' }, size: 0.9 },
-        { keyProps: { mainText: 'ต', subText: '9' }, size: 0.9 },
-        { keyProps: { mainText: 'จ', subText: '0' }, size: 0.9 },
-        { keyProps: { mainText: 'ข', subText: '-' }, size: 0.9 },
-        { keyProps: { mainText: 'ช', subText: '=' }, size: 0.9 },
+        { keyProps: { mainText: 'ๅ', subText: '1' }, size: 1 },
+        { keyProps: { mainText: 'ฃ', subText: '2' }, size: 1 },
+        { keyProps: { mainText: '-', subText: '3' }, size: 1 },
+        { keyProps: { mainText: 'ภ', subText: '4' }, size: 1 },
+        { keyProps: { mainText: 'ถ', subText: '5' }, size: 1 },
+        { keyProps: { mainText: ' ุ', subText: '6' }, size: 1 },
+        { keyProps: { mainText: ' ึ', subText: '7' }, size: 1 },
+        { keyProps: { mainText: 'ค', subText: '8' }, size: 1 },
+        { keyProps: { mainText: 'ต', subText: '9' }, size: 1 },
+        { keyProps: { mainText: 'จ', subText: '0' }, size: 1 },
+        { keyProps: { mainText: 'ข', subText: '-' }, size: 1 },
+        { keyProps: { mainText: 'ช', subText: '=' }, size: 1 },
     ]
 };
 
 // row 2 for mobile
 const keyboardRow2M: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'ๆ', subText: 'q' }, size: 0.9 },
-        { keyProps: { mainText: 'ไ', subText: 'w' }, size: 0.9 },
-        { keyProps: { mainText: ' ำ', subText: 'e' }, size: 0.9 },
-        { keyProps: { mainText: 'พ', subText: 'r' }, size: 0.9 },
-        { keyProps: { mainText: 'ะ', subText: 't' }, size: 0.9 },
-        { keyProps: { mainText: ' ั', subText: 'y' }, size: 0.9 },
-        { keyProps: { mainText: ' ี', subText: 'u' }, size: 0.9 },
-        { keyProps: { mainText: 'ร', subText: 'i' }, size: 0.9 },
-        { keyProps: { mainText: 'น', subText: 'o' }, size: 0.9 },
-        { keyProps: { mainText: 'ย', subText: 'p' }, size: 0.9 },
-        { keyProps: { mainText: 'บ', subText: '[' }, size: 0.9 },
-        { keyProps: { mainText: 'ล', subText: ']' }, size: 0.9 },
+        { keyProps: { mainText: 'ๆ', subText: 'q' }, size: 1 },
+        { keyProps: { mainText: 'ไ', subText: 'w' }, size: 1 },
+        { keyProps: { mainText: ' ำ', subText: 'e' }, size: 1 },
+        { keyProps: { mainText: 'พ', subText: 'r' }, size: 1 },
+        { keyProps: { mainText: 'ะ', subText: 't' }, size: 1 },
+        { keyProps: { mainText: ' ั', subText: 'y' }, size: 1 },
+        { keyProps: { mainText: ' ี', subText: 'u' }, size: 1 },
+        { keyProps: { mainText: 'ร', subText: 'i' }, size: 1 },
+        { keyProps: { mainText: 'น', subText: 'o' }, size: 1 },
+        { keyProps: { mainText: 'ย', subText: 'p' }, size: 1 },
+        { keyProps: { mainText: 'บ', subText: '[' }, size: 1 },
+        { keyProps: { mainText: 'ล', subText: ']' }, size: 1 },
     ]
 };
 
 // row 3 for mobile
 const keyboardRow3M: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'ฟ', subText: 'a' }, size: 0.9 },
-        { keyProps: { mainText: 'ห', subText: 's' }, size: 0.9 },
-        { keyProps: { mainText: 'ก', subText: 'd' }, size: 0.9 },
-        { keyProps: { mainText: 'ด', subText: 'f' }, size: 0.9 },
-        { keyProps: { mainText: 'เ', subText: 'g' }, size: 0.9 },
-        { keyProps: { mainText: ' ้', subText: 'h' }, size: 0.9 },
-        { keyProps: { mainText: ' ่', subText: 'j' }, size: 0.9 },
-        { keyProps: { mainText: 'า', subText: 'k' }, size: 0.9 },
-        { keyProps: { mainText: 'ส', subText: 'l' }, size: 0.9 },
-        { keyProps: { mainText: 'ว', subText: ';' }, size: 0.9 },
-        { keyProps: { mainText: 'ง', subText: '\'' }, size: 0.9 },
+        { keyProps: { mainText: 'ฟ', subText: 'a' }, size: 1 },
+        { keyProps: { mainText: 'ห', subText: 's' }, size: 1 },
+        { keyProps: { mainText: 'ก', subText: 'd' }, size: 1 },
+        { keyProps: { mainText: 'ด', subText: 'f' }, size: 1 },
+        { keyProps: { mainText: 'เ', subText: 'g' }, size: 1 },
+        { keyProps: { mainText: ' ้', subText: 'h' }, size: 1 },
+        { keyProps: { mainText: ' ่', subText: 'j' }, size: 1 },
+        { keyProps: { mainText: 'า', subText: 'k' }, size: 1 },
+        { keyProps: { mainText: 'ส', subText: 'l' }, size: 1 },
+        { keyProps: { mainText: 'ว', subText: ';' }, size: 1 },
+        { keyProps: { mainText: 'ง', subText: '\'' }, size: 1 },
     ]
 };
 
 // row 4 for mobile
 const keyboardRow4M: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'capslock', iconName: 'capslock' }, size: 0.8 },
-        { keyProps: { mainText: 'ผ', subText: 'z' }, size: 0.8 },
-        { keyProps: { mainText: 'ป', subText: 'x' }, size: 0.8 },
-        { keyProps: { mainText: 'แ', subText: 'c' }, size: 0.8 },
-        { keyProps: { mainText: 'อ', subText: 'v' }, size: 0.8 },
-        { keyProps: { mainText: ' ิ', subText: 'b' }, size: 0.8 },
-        { keyProps: { mainText: ' ื', subText: 'n' }, size: 0.8 },
-        { keyProps: { mainText: 'ท', subText: 'm' }, size: 0.8 },
-        { keyProps: { mainText: 'ม', subText: ',' }, size: 0.8 },
-        { keyProps: { mainText: 'ใ', subText: '.' }, size: 0.8 },
-        { keyProps: { mainText: 'ฝ', subText: '/' }, size: 0.8 },
-        { keyProps: { mainText: 'backspace', iconName: 'backspace' }, size: 1.6 },
+        { keyProps: { mainText: 'capslock', iconName: 'capslock' }, size: 1 },
+        { keyProps: { mainText: 'ผ', subText: 'z' }, size: 1 },
+        { keyProps: { mainText: 'ป', subText: 'x' }, size: 1 },
+        { keyProps: { mainText: 'แ', subText: 'c' }, size: 1 },
+        { keyProps: { mainText: 'อ', subText: 'v' }, size: 1 },
+        { keyProps: { mainText: ' ิ', subText: 'b' }, size: 1 },
+        { keyProps: { mainText: ' ื', subText: 'n' }, size: 1 },
+        { keyProps: { mainText: 'ท', subText: 'm' }, size: 1 },
+        { keyProps: { mainText: 'ม', subText: ',' }, size: 1 },
+        { keyProps: { mainText: 'ใ', subText: '.' }, size: 1 },
+        { keyProps: { mainText: 'ฝ', subText: '/' }, size: 1 },
+        { keyProps: { mainText: 'backspace', iconName: 'backspace' }, size: 1 },
     ]
 };
 

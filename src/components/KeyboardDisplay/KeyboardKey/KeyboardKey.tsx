@@ -28,18 +28,17 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({
     isPressed = false,
     isSuggested = false,
 }) => {
-    const bgColor = isPressed
-        ? '#B3A0FF'
-        : (isSuggested ? 'orange' : '#DCD3FF');
-
     const KeyIcon = iconName ? iconMap[iconName] : <div/>;
 
     return (
         <Box
-            sx={{
-                ...styles.key,
-                background: bgColor
-            }}
+            sx={
+                isPressed
+                    ? { ...styles.keyPressed }
+                    : isSuggested
+                        ? { ...styles.keySuggested }
+                        : { ...styles.key }
+            }
         >
             {iconName && (
                 <Box sx={{ ...styles.iconContainer }}>{KeyIcon}</Box>
