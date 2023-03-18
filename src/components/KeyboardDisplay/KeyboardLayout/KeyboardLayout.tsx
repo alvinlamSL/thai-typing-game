@@ -3,7 +3,12 @@ import { useTheme } from '@mui/material/styles';
 import { Grid, useMediaQuery } from '@mui/material';
 
 import KeyboardKey from '../KeyboardKey';
-import { keyboardRows, keyboardRowsM, keyboardRowsShift } from './constants';
+import {
+    keyboardRows,
+    keyboardRowsM,
+    keyboardRowsShift,
+    keyboardRowsShiftM,
+} from './constants';
 
 import type { KeyboardKeyProps } from '../KeyboardKey/KeyboardKey';
 import type { SuggestedKey } from '../../../App';
@@ -41,7 +46,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
 }) => {
     let keyToHighlight = suggestedKey.key;
     if (isCapsOn !== suggestedKey.isCaps) {
-        keyToHighlight = 'shift';
+        keyToHighlight = isMobile ? 'capslock' : 'shift';
     }
 
     return (
@@ -80,7 +85,7 @@ const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const currentKeyboardRows = isMobile
-        ? (isCapsOn ? keyboardRowsShift : keyboardRowsM)
+        ? (isCapsOn ? keyboardRowsShiftM : keyboardRowsM)
         : (isCapsOn ? keyboardRowsShift : keyboardRows);
 
     return (

@@ -55,6 +55,9 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
 
     const handleKeyTap = (keyValue: string): void => {
         setTappedKeys(prevState => [...prevState, keyValue]);
+        if (keyValue === 'capslock') {
+            setCapsLockOn(prevState => !prevState);
+        }
     };
 
     const pressedKeysObj: Record<string, boolean> = {};

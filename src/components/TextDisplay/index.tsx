@@ -286,10 +286,16 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({
     useEffect(() => {
         if (tappedKeys.length > 0) {
             const key = tappedKeys[0];
-            handleKeyDown({ key });
+
+            if (key === 'capslock' && textState.capsLockOn) {
+                handleKeyUp({ key });
+            } else {
+                handleKeyDown({ key });
+            }
+
             setTappedKeys(prevState => prevState.slice(1));
         }
-    }, [tappedKeys]);
+    }, [tappedKeys, textState.capsLockOn]);
 
     const {
         engPhonemeStartEndList,

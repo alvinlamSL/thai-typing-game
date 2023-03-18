@@ -252,6 +252,77 @@ const keyboardRow5M: KeyboardRow = {
     ]
 };
 
+// row 6 for mobile
+const keyboardRow6M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: '+', subText: '1' }, size: 1 },
+        { keyProps: { mainText: '๑', subText: '2' }, size: 1 },
+        { keyProps: { mainText: '๒', subText: '3' }, size: 1 },
+        { keyProps: { mainText: '๓', subText: '4' }, size: 1 },
+        { keyProps: { mainText: '๔', subText: '5' }, size: 1 },
+        { keyProps: { mainText: 'ู', subText: '6' }, size: 1 },
+        { keyProps: { mainText: '฿', subText: '7' }, size: 1 },
+        { keyProps: { mainText: '๕', subText: '8' }, size: 1 },
+        { keyProps: { mainText: '๖', subText: '9' }, size: 1 },
+        { keyProps: { mainText: '๗', subText: '0' }, size: 1 },
+        { keyProps: { mainText: '๘', subText: '-' }, size: 1 },
+        { keyProps: { mainText: '๙', subText: '=' }, size: 1 },
+    ]
+};
+
+// row 7 for mobile
+const keyboardRow7M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: '๐', subText: 'q' }, size: 1 },
+        { keyProps: { mainText: '"', subText: 'w' }, size: 1 },
+        { keyProps: { mainText: 'ฎ', subText: 'e' }, size: 1 },
+        { keyProps: { mainText: 'ฑ', subText: 'r' }, size: 1 },
+        { keyProps: { mainText: 'ธ', subText: 't' }, size: 1 },
+        { keyProps: { mainText: 'ํ', subText: 'y' }, size: 1 },
+        { keyProps: { mainText: '๊', subText: 'u' }, size: 1 },
+        { keyProps: { mainText: 'ณ', subText: 'i' }, size: 1 },
+        { keyProps: { mainText: 'ฯ', subText: 'o' }, size: 1 },
+        { keyProps: { mainText: 'ญ', subText: 'p' }, size: 1 },
+        { keyProps: { mainText: 'ฐ', subText: '[' }, size: 1 },
+        { keyProps: { mainText: ',', subText: ']' }, size: 1 },
+    ]
+};
+
+// row 8 for mobile
+const keyboardRow8M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: 'ฤ', subText: 'a' }, size: 1 },
+        { keyProps: { mainText: 'ฆ', subText: 's' }, size: 1 },
+        { keyProps: { mainText: 'ฏ', subText: 'd' }, size: 1 },
+        { keyProps: { mainText: 'โ', subText: 'f' }, size: 1 },
+        { keyProps: { mainText: 'ฌ', subText: 'g' }, size: 1 },
+        { keyProps: { mainText: '็', subText: 'h' }, size: 1 },
+        { keyProps: { mainText: '๋', subText: 'j' }, size: 1 },
+        { keyProps: { mainText: 'ษ', subText: 'k' }, size: 1 },
+        { keyProps: { mainText: 'ศ', subText: 'l' }, size: 1 },
+        { keyProps: { mainText: 'ซ', subText: ';' }, size: 1 },
+        { keyProps: { mainText: '.', subText: '\'' }, size: 1 },
+    ]
+};
+
+// row 9 for mobile
+const keyboardRow9M: KeyboardRow = {
+    keyboardKeys: [
+        { keyProps: { mainText: 'capslock', iconName: 'capslock' }, size: 1 },
+        { keyProps: { mainText: '(', subText: 'z' }, size: 1 },
+        { keyProps: { mainText: ')', subText: 'x' }, size: 1 },
+        { keyProps: { mainText: 'ฉ', subText: 'c' }, size: 1 },
+        { keyProps: { mainText: 'ฮ', subText: 'v' }, size: 1 },
+        { keyProps: { mainText: 'ฺ', subText: 'b' }, size: 1 },
+        { keyProps: { mainText: '์', subText: 'n' }, size: 1 },
+        { keyProps: { mainText: '?', subText: 'm' }, size: 1 },
+        { keyProps: { mainText: 'ฒ', subText: ',' }, size: 1 },
+        { keyProps: { mainText: 'ฬ', subText: '.' }, size: 1 },
+        { keyProps: { mainText: 'ฦ', subText: '/' }, size: 1 },
+        { keyProps: { mainText: 'backspace', iconName: 'backspace' }, size: 1 },
+    ]
+};
+
 export const keyboardRows: KeyboardRow[] = [
     keyboardRow1,
     keyboardRow2,
@@ -273,5 +344,13 @@ export const keyboardRowsM: KeyboardRow[] = [
     keyboardRow2M,
     keyboardRow3M,
     keyboardRow4M,
+    keyboardRow5M,
+];
+
+export const keyboardRowsShiftM: KeyboardRow[] = [
+    keyboardRow6M,
+    keyboardRow7M,
+    keyboardRow8M,
+    keyboardRow9M,
     keyboardRow5M,
 ];
