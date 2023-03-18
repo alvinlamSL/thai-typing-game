@@ -15,13 +15,21 @@ export interface SuggestedKey {
 
 const App: React.FC = () => {
     const [suggestedKey, setSuggestedKey] = useState<SuggestedKey>({ key: '', isCaps: false });
+    const [tappedKeys, setTappedKeys] = useState<string[]>([]);
 
     return (
         <div className="App">
             <Container sx={{ ...styles?.appContainer }} maxWidth="md">
                 <Banner/>
-                <TextDisplay setSuggestedKey={setSuggestedKey} />
-                <KeyboardDisplay suggestedKey={suggestedKey} />
+                <TextDisplay
+                    tappedKeys={tappedKeys}
+                    setSuggestedKey={setSuggestedKey}
+                    setTappedKeys={setTappedKeys}
+                />
+                <KeyboardDisplay
+                    suggestedKey={suggestedKey}
+                    setTappedKeys={setTappedKeys}
+                />
             </Container>
         </div>
     );
