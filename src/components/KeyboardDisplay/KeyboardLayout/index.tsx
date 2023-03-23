@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import KeyboardLayout from './KeyboardLayout';
 
-import { type SuggestedKey } from '../../../App';
+import ReducerContext from '../../../reducer/reducerContext';
+import { keyDown, keyUp } from '../../../reducer/actions';
+import type { SuggestedKey } from '../../../App';
 
 interface KeyboardLayoutContainerProps {
     suggestedKey: SuggestedKey
@@ -13,35 +15,16 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
     suggestedKey,
     setTappedKeys,
 }) => {
-    const [pressedKeys, setPressedKeys] = useState<string[]>([]);
+    const { state, dispatch } = useContext(ReducerContext);
+    const { pressedKeys, shiftKeyDown } = state;
     const [capsLockOn, setCapsLockOn] = useState<boolean>(false);
-    const [shiftKeyDown, setShiftKeyDown] = useState<boolean>(false);
 
     const handleKeyDown = (event: any): void => {
-        setPressedKeys(prevState => [
-            ...prevState,
-            event.key.toLowerCase()
-        ]);
-
-        if (event.key.toLowerCase() === 'capslock') {
-            setCapsLockOn(true);
-        }
-
-        if (event.key.toLowerCase() === 'shift') {
-            setShiftKeyDown(true);
-        }
+        dispatch(keyDown(event.key.toLowerCase()));
     };
 
     const handleKeyUp = (event: any): void => {
-        setPressedKeys(prevState => prevState.filter((item) => item !== event.key.toLowerCase()));
-
-        if (event.key.toLowerCase() === 'capslock') {
-            setCapsLockOn(false);
-        }
-
-        if (event.key.toLowerCase() === 'shift') {
-            setShiftKeyDown(false);
-        }
+        dispatch(keyUp(event.key.toLowerCase()));
     };
 
     useEffect(() => {
