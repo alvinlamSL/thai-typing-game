@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import KeyboardLayout from './KeyboardLayout';
 
@@ -8,16 +8,13 @@ import type { SuggestedKey } from '../../../App';
 
 interface KeyboardLayoutContainerProps {
     suggestedKey: SuggestedKey
-    setTappedKeys: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
     suggestedKey,
-    setTappedKeys,
 }) => {
     const { state, dispatch } = useContext(ReducerContext);
-    const { pressedKeys, shiftKeyDown } = state;
-    const [capsLockOn, setCapsLockOn] = useState<boolean>(false);
+    const { pressedKeys, shiftKeyDown, capsLockOn } = state;
 
     const handleKeyDown = (event: any): void => {
         dispatch(keyDown(event.key.toLowerCase()));
@@ -36,13 +33,6 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
         };
     }, []);
 
-    const handleKeyTap = (keyValue: string): void => {
-        setTappedKeys(prevState => [...prevState, keyValue]);
-        if (keyValue === 'capslock') {
-            setCapsLockOn(prevState => !prevState);
-        }
-    };
-
     const pressedKeysObj: Record<string, boolean> = {};
     pressedKeys.forEach((key) => {
         pressedKeysObj[key] = true;
@@ -55,7 +45,6 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
             pressedKeys={pressedKeysObj}
             isCapsOn={isCapsOn}
             suggestedKey={suggestedKey}
-            handleKeyTap={handleKeyTap}
         />
     );
 };
