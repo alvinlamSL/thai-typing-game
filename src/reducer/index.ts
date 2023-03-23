@@ -2,7 +2,13 @@ import { type Reducer } from 'react';
 import produce from 'immer';
 
 import { type State } from './state';
-import { type ActionTypes, TEST_ACTION, KEY_DOWN, KEY_UP } from './actions';
+import {
+    TEST_ACTION,
+    KEY_DOWN,
+    KEY_UP,
+    KEY_TAP
+} from './actions';
+import type { ActionTypes } from './actions';
 
 export const reducer: Reducer<State, ActionTypes> = (state, action) => {
     switch (action.type) {
@@ -46,6 +52,22 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
 
                 if (key.toLowerCase() === 'shift') {
                     draft.capsLockOn = false;
+                }
+
+                return draft;
+            });
+        }
+        case KEY_TAP: {
+            return produce(state, (draft) => {
+                const { key } = action.payload;
+
+                draft.tappedKeys = [
+                    ...state.tappedKeys,
+                    key.toLowerCase()
+                ];
+
+                if (key.toLowerCase() === 'capslock') {
+                    draft.capsLockOn = !state.capsLockOn;
                 }
 
                 return draft;

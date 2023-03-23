@@ -1,6 +1,7 @@
 export interface State {
     testText: string
     pressedKeys: string[]
+    tappedKeys: string[]
     capsLockOn: boolean
     shiftKeyDown: boolean
 };
@@ -8,6 +9,7 @@ export interface State {
 export const initialState: State = {
     testText: '',
     pressedKeys: [],
+    tappedKeys: [],
     capsLockOn: false,
     shiftKeyDown: false,
 };
