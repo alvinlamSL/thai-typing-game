@@ -26,8 +26,15 @@ const App: React.FC = () => {
             <div className="App">
                 <Container sx={{ ...styles?.appContainer }} maxWidth="md">
                     <Banner/>
-                    <TextDisplay setSuggestedKey={setSuggestedKey} />
-                    <KeyboardDisplay suggestedKey={suggestedKey} />
+                    <TextDisplay
+                        tappedKeys={tappedKeys}
+                        setSuggestedKey={setSuggestedKey}
+                        setTappedKeys={setTappedKeys}
+                    />
+                    <KeyboardDisplay
+                        suggestedKey={suggestedKey}
+                        setTappedKeys={setTappedKeys}
+                    />
                 </Container>
             </div>
         </ReducerContext.Provider>
