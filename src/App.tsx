@@ -34,11 +34,10 @@ const App: React.FC = () => {
                     />
                     <KeyboardDisplay
                         suggestedKey={suggestedKey}
-                        setTappedKeys={setTappedKeys}
                     />
                 </Container>
             </div>
-        </ReducerContext.Provider
+        </ReducerContext.Provider>
     );
 };
 

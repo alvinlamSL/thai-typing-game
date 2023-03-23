@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Grid, useMediaQuery } from '@mui/material';
 
-import KeyboardKey from '../KeyboardKey';
+import KeyboardKey from '../KeyboardKey/index';
 import {
     keyboardRows,
     keyboardRowsM,
@@ -26,14 +26,12 @@ interface KeyboardRowProps {
     isMobile: boolean
     suggestedKey: SuggestedKey
     pressedKeys?: Record<string, boolean>
-    handleKeyTap: (keyText: string) => void
 };
 
 interface KeyboardLayoutProps {
     pressedKeys: Record<string, boolean>
     isCapsOn: boolean
     suggestedKey: SuggestedKey
-    handleKeyTap: (keyText: string) => void
 }
 
 const KeyboardRow: React.FC<KeyboardRowProps> = ({
@@ -41,7 +39,6 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
     isMobile,
     keyboardKeys,
     suggestedKey,
-    handleKeyTap,
     pressedKeys = {},
 }) => {
     let keyToHighlight = suggestedKey.key;
@@ -68,7 +65,6 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
                         {...keyProps}
                         isPressed={pressedKeys[keyProps.mainText] || pressedKeys[keyProps.subText ?? '']}
                         isSuggested={keyToHighlight === keyProps.subText || keyToHighlight === keyProps.mainText}
-                        handleKeyTap={handleKeyTap}
                     />
                 </Grid>
             ))}
@@ -80,7 +76,6 @@ const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({
     pressedKeys,
     isCapsOn,
     suggestedKey,
-    handleKeyTap,
 }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -103,7 +98,6 @@ const KeyboardLayout: React.FC<KeyboardLayoutProps> = ({
                         keyboardKeys={row.keyboardKeys}
                         pressedKeys={pressedKeys}
                         suggestedKey={suggestedKey}
-                        handleKeyTap={handleKeyTap}
                     />
                 </Grid>
             ))}
