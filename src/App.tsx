@@ -38,7 +38,7 @@ const App: React.FC = () => {
                     />
                 </Container>
             </div>
-        </ReducerContext.Provider
+        </ReducerContext.Provider>
     );
 };
 
