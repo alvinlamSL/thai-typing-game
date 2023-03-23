@@ -6,9 +6,13 @@ import { type SuggestedKey } from '../../../App';
 
 interface KeyboardLayoutContainerProps {
     suggestedKey: SuggestedKey
+    setTappedKeys: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({ suggestedKey }) => {
+const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
+    suggestedKey,
+    setTappedKeys,
+}) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
     const [capsLockOn, setCapsLockOn] = useState<boolean>(false);
     const [shiftKeyDown, setShiftKeyDown] = useState<boolean>(false);
@@ -49,6 +53,13 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({ sugge
         };
     }, []);
 
+    const handleKeyTap = (keyValue: string): void => {
+        setTappedKeys(prevState => [...prevState, keyValue]);
+        if (keyValue === 'capslock') {
+            setCapsLockOn(prevState => !prevState);
+        }
+    };
+
     const pressedKeysObj: Record<string, boolean> = {};
     pressedKeys.forEach((key) => {
         pressedKeysObj[key] = true;
@@ -61,6 +72,7 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({ sugge
             pressedKeys={pressedKeysObj}
             isCapsOn={isCapsOn}
             suggestedKey={suggestedKey}
+            handleKeyTap={handleKeyTap}
         />
     );
 };

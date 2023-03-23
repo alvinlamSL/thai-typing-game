@@ -20,6 +20,7 @@ export interface SuggestedKey {
 const App: React.FC = () => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     const [suggestedKey, setSuggestedKey] = useState<SuggestedKey>({ key: '', isCaps: false });
+    const [tappedKeys, setTappedKeys] = useState<string[]>([]);
 
     return (
         <ReducerContext.Provider value={{ state, dispatch }}>
@@ -37,7 +38,7 @@ const App: React.FC = () => {
                     />
                 </Container>
             </div>
-        </ReducerContext.Provider>
+        </ReducerContext.Provider
     );
 };
 

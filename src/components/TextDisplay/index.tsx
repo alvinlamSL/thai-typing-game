@@ -37,10 +37,16 @@ interface TextState {
 };
 
 interface TextDisplayContainerProps {
+    tappedKeys: string[]
     setSuggestedKey: (suggestedKey: SuggestedKey) => void
+    setTappedKeys: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggestedKey }) => {
+const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({
+    tappedKeys,
+    setSuggestedKey,
+    setTappedKeys,
+}) => {
     const [textState, setTextState] = useState<TextState>({
         lastLetter: '',
         enteredText: '',
@@ -283,6 +289,21 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         textState.currThaiScript,
         textState.backspacesRequired,
     ]);
+
+    // Update when key is tapped (for mobile)
+    useEffect(() => {
+        if (tappedKeys.length > 0) {
+            const key = tappedKeys[0];
+
+            if (key === 'capslock' && textState.capsLockOn) {
+                handleKeyUp({ key });
+            } else {
+                handleKeyDown({ key });
+            }
+
+            setTappedKeys(prevState => prevState.slice(1));
+        }
+    }, [tappedKeys, textState.capsLockOn]);
 
     const {
         engPhonemeStartEndList,

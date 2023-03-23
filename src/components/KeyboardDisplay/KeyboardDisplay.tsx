@@ -9,14 +9,21 @@ import styles from './KeyboardDisplay.styles';
 
 interface KeyboardDisplayProps {
     suggestedKey: SuggestedKey
+    setTappedKeys: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const KeyboardDisplay: React.FC<KeyboardDisplayProps> = ({ suggestedKey }) => {
+const KeyboardDisplay: React.FC<KeyboardDisplayProps> = ({
+    suggestedKey,
+    setTappedKeys,
+}) => {
     return (
         <Box
             sx={{ ...styles?.main }}
         >
-            <KeyboardLayout suggestedKey={suggestedKey} />
+            <KeyboardLayout
+                suggestedKey={suggestedKey}
+                setTappedKeys={setTappedKeys}
+            />
         </Box>
     );
 };
