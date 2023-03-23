@@ -3,10 +3,45 @@ import { type SxProps } from '@mui/system';
 const styles: Record<string, SxProps> = {
     key: {
         position: 'relative',
-        height: { xs: '2em', md: '3em' },
+        height: { xs: '2.5em', md: '3em' },
         border: 'solid grey',
         borderWidth: { xs: '0.5px', md: '2px' },
         borderRadius: { xs: '4px', md: '8px' },
+        background: '#DCD3FF',
+        '&:hover': {
+            cursor: { md: 'pointer' },
+            color: { md: 'red' },
+            backgroundColor: { md: 'white' },
+        },
+        '&:active': {
+            cursor: 'pointer',
+            background: '#B3A0FF',
+        },
+    },
+    keyPressed: {
+        position: 'relative',
+        height: { xs: '2.5em', md: '3em' },
+        border: 'solid grey',
+        borderWidth: { xs: '0.5px', md: '2px' },
+        borderRadius: { xs: '4px', md: '8px' },
+        background: '#B3A0FF',
+    },
+    keySuggested: {
+        position: 'relative',
+        height: { xs: '2.5em', md: '3em' },
+        border: 'solid grey',
+        borderWidth: { xs: '0.5px', md: '2px' },
+        borderRadius: { xs: '4px', md: '8px' },
+        background: 'orange',
+        '&:hover': {
+            cursor: { md: 'pointer' },
+            color: { md: 'red' },
+            backgroundColor: { md: 'white' },
+        },
+        '&:active': {
+            cursor: 'pointer',
+            background: '#B3A0FF',
+        },
     },
     mainText: {
         position: 'relative',
@@ -22,7 +57,7 @@ const styles: Record<string, SxProps> = {
     },
     iconContainer: {
         position: 'relative',
-        top: '25%',
+        top: '27%',
     },
     icon: {
         fontSize: '0.8em',

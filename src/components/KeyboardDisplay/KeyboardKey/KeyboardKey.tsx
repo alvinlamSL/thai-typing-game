@@ -13,6 +13,7 @@ export interface KeyboardKeyProps {
     subText?: string
     isPressed?: boolean
     isSuggested?: boolean
+    handleKeyTap?: (keyText: string) => void
 }
 
 const iconMap: Record<string, ReactElement> = {
@@ -25,21 +26,22 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({
     mainText,
     iconName,
     subText,
+    handleKeyTap = () => {},
     isPressed = false,
     isSuggested = false,
 }) => {
-    const bgColor = isPressed
-        ? '#B3A0FF'
-        : (isSuggested ? 'orange' : '#DCD3FF');
-
     const KeyIcon = iconName ? iconMap[iconName] : <div/>;
 
     return (
         <Box
-            sx={{
-                ...styles.key,
-                background: bgColor
-            }}
+            sx={
+                isPressed
+                    ? { ...styles.keyPressed }
+                    : isSuggested
+                        ? { ...styles.keySuggested }
+                        : { ...styles.key }
+            }
+            onClick={() => { handleKeyTap(subText ?? mainText); }}
         >
             {iconName && (
                 <Box sx={{ ...styles.iconContainer }}>{KeyIcon}</Box>
