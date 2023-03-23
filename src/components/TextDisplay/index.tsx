@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import {
     keyList,
@@ -13,6 +13,8 @@ import { splitPhonemeScript } from './utils';
 
 import TextDisplay from './TextDisplay';
 
+import ReducerContext from '../../reducer/reducerContext';
+import { testAction } from '../../reducer/actions';
 import type { PhonemeStartEnd } from './utils';
 import type { SuggestedKey } from '../../App';
 
@@ -56,6 +58,12 @@ const TextDisplayContainer: React.FC<TextDisplayContainerProps> = ({ setSuggeste
         currThaiScript: '',
         currScriptIndex: 0,
     });
+    const { state, dispatch } = useContext(ReducerContext);
+
+    // TODO: get rid of this when reducers are rolled out
+    // This is just to test the reducer
+    dispatch(testAction(textState.lastLetter));
+    console.log('reducer test text', state.testText);
 
     const handleKeyDown = (event: any): void => {
         const keyValue = event.key.toLowerCase();
