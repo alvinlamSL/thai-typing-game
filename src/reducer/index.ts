@@ -1,25 +1,39 @@
 import { type Reducer } from 'react';
 import produce from 'immer';
 
-import { type State } from './state';
+import type { State } from './state';
+import type { ActionTypes } from './actions';
+
 import {
     TEST_ACTION,
     KEY_DOWN,
     KEY_UP,
     KEY_TAP
 } from './actions';
-import type { ActionTypes } from './actions';
+
+import {
+    engPhonemeScripts,
+    keyList,
+    keyListShift,
+    thaiPhonemeScripts
+} from './constants';
+
+import { splitPhonemeScript } from './utils';
 
 export const reducer: Reducer<State, ActionTypes> = (state, action) => {
+    let newState = state;
+    let pressedKey: string = '';
     switch (action.type) {
         case TEST_ACTION: {
-            return produce(state, (draft) => {
+            newState = produce(state, (draft) => {
                 draft.testText = action.payload.testText;
                 return draft;
             });
+            break;
         }
         case KEY_DOWN: {
-            return produce(state, (draft) => {
+            pressedKey = action.payload.key;
+            newState = produce(state, (draft) => {
                 const { key } = action.payload;
 
                 draft.pressedKeys = [
@@ -27,19 +41,22 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                     key.toLowerCase()
                 ];
 
+                // If caps lock pressed
                 if (key.toLowerCase() === 'capslock') {
                     draft.capsLockOn = true;
                 }
 
+                // If shift key pressed
                 if (key.toLowerCase() === 'shift') {
                     draft.capsLockOn = true;
                 }
 
                 return draft;
             });
+            break;
         }
         case KEY_UP: {
-            return produce(state, (draft) => {
+            newState = produce(state, (draft) => {
                 const { key } = action.payload;
 
                 draft.pressedKeys = state.pressedKeys.filter((item) => (
@@ -56,9 +73,11 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
 
                 return draft;
             });
+            break;
         }
         case KEY_TAP: {
-            return produce(state, (draft) => {
+            pressedKey = action.payload.key;
+            newState = produce(state, (draft) => {
                 const { key } = action.payload;
 
                 draft.tappedKeys = [
@@ -74,4 +93,116 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
             });
         }
     }
+
+    // Handle changes if a key was pressed
+    // NOTE: capslock/shiftkey handled by KEY_DOWN/KEY_TAP
+    if (pressedKey) {
+        newState = produce(newState, (draft) => {
+            // If backspace pressed
+            if (pressedKey.toLowerCase() === 'backspace') {
+                draft.enteredText = state.enteredText.slice(0, -1);
+                if (newState.backspacesRequired > 0) {
+                    draft.backspacesRequired--;
+                }
+            }
+
+            // If enter pressed
+            if (pressedKey.toLowerCase() === 'enter') {
+                if (newState.currThaiLetterIndex === state.currThaiScript.length) {
+                    draft.currScriptIndex++;
+                }
+            }
+
+            // If any other valid key was pressed
+            if (keyList[pressedKey]) {
+                const { shiftKeyDown, capsLockOn } = newState;
+                const currKeyList = (shiftKeyDown !== capsLockOn)
+                    ? keyListShift
+                    : keyList;
+                // update entered text
+                draft.enteredText += currKeyList[pressedKey].displayValue;
+            }
+
+            return draft;
+        });
+    }
+
+    // Handle text deleted (backspace)
+    if (state.enteredText.length > newState.enteredText.length) {
+        newState = produce(newState, (draft) => {
+            // Check updates to thai letter index
+            const lastLetterRemoved =
+                state.enteredText[state.enteredText.length - 1];
+            const shouldDecreaseThaiLetterIndex = (
+                (state.currThaiLetterIndex > 0) &&
+                (state.backspacesRequired === 0) &&
+                (lastLetterRemoved === (
+                    state.currThaiScript[state.currThaiLetterIndex - 1]
+                ))
+            );
+            if (shouldDecreaseThaiLetterIndex) {
+                draft.currThaiLetterIndex--;
+            }
+
+            // Check updates to phoneme index
+            const { currPhonemeIndex, thaiPhonemeStartEndList } = state;
+            const thaiPhonemeStartIndex = thaiPhonemeStartEndList[currPhonemeIndex].start;
+            if (draft.currThaiLetterIndex < thaiPhonemeStartIndex) {
+                draft.currPhonemeIndex--;
+            }
+
+            return draft;
+        });
+    }
+
+    // Handle text added
+    if (state.enteredText.length < newState.enteredText.length) {
+        newState = produce(newState, (draft) => {
+            const {
+                backspacesRequired,
+                currThaiLetterIndex,
+                currThaiScript,
+                enteredText,
+            } = newState;
+            const correctThaiLetter = currThaiScript[currThaiLetterIndex];
+            const lastEnteredKey = enteredText[enteredText.length - 1];
+
+            if (backspacesRequired === 0 && correctThaiLetter === lastEnteredKey) {
+                // correct key pressed
+                draft.currThaiLetterIndex++;
+            } else {
+                // incorrect key pressed
+                draft.backspacesRequired++;
+            }
+
+            // Check updates to phoneme index
+            const { currPhonemeIndex, thaiPhonemeStartEndList } = state;
+            const thaiPhonemeEndIndex = thaiPhonemeStartEndList[currPhonemeIndex].end;
+            if (
+                draft.currThaiLetterIndex >= thaiPhonemeEndIndex &&
+                draft.currPhonemeIndex < draft.engPhonemeStartEndList.length - 1
+            ) {
+                draft.currPhonemeIndex++;
+            }
+        });
+    }
+
+    // Handle new script
+    if (state.currScriptIndex !== newState.currScriptIndex) {
+        // reset everything
+        if (newState.currScriptIndex < newState.engScripts.length - 1) {
+            const { currScriptIndex } = newState;
+            newState = produce(newState, (draft) => {
+                draft.enteredText = '';
+                draft.backspacesRequired = 0;
+                draft.currPhonemeIndex = 0;
+                draft.currThaiLetterIndex = 0;
+                draft.currThaiScript = thaiPhonemeScripts[currScriptIndex].replaceAll('.', '');
+                draft.engPhonemeStartEndList = splitPhonemeScript(engPhonemeScripts[currScriptIndex]);
+                draft.thaiPhonemeStartEndList = splitPhonemeScript(thaiPhonemeScripts[currScriptIndex], true);
+            });
+        }
+    }
+
+    return newState;
 };
