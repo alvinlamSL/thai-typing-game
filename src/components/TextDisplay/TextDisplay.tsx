@@ -8,7 +8,6 @@ import styles from './TextDisplay.styles';
 
 interface TextDisplayProps {
     enteredText: string
-    lastLetter: string
     thaiScript: string
     engScript: string
     engPhonemeScript: string
@@ -21,7 +20,6 @@ interface TextDisplayProps {
 
 interface ThaiScriptDisplayProps {
     enteredText: string
-    lastEnteredLetter: string
     thaiScript: string
     thaiPhonemeStartIndex: number
     thaiPhonemeEndIndex: number
@@ -40,7 +38,6 @@ interface EngScriptDisplayProps {
 
 const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     enteredText,
-    lastEnteredLetter,
     thaiScript,
     thaiPhonemeStartIndex,
     thaiPhonemeEndIndex,
@@ -48,12 +45,12 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
 }) => {
     let highlightEnteredTextStartIndex = enteredText.length;
     if (backspacesRequired > 0) {
-        highlightEnteredTextStartIndex -= backspacesRequired - 1;
+        highlightEnteredTextStartIndex -= backspacesRequired;
     }
 
-    let isCompoundLetter = backspacesRequired > 1
-        ? compoundLetters.includes(enteredText[highlightEnteredTextStartIndex])
-        : compoundLetters.includes(lastEnteredLetter);
+    let isCompoundLetter =
+        compoundLetters.includes(enteredText[highlightEnteredTextStartIndex]);
+
     while (isCompoundLetter && highlightEnteredTextStartIndex > 0) {
         highlightEnteredTextStartIndex--;
         isCompoundLetter = compoundLetters.includes(enteredText[highlightEnteredTextStartIndex]);
@@ -85,7 +82,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
                     ? { ...styles?.textHighlightError }
                     : { ...styles?.textHighlight }
             }>
-                {`${enteredText.slice(highlightEnteredTextStartIndex)}${lastEnteredLetter}`}
+                {enteredText.slice(highlightEnteredTextStartIndex)}
             </Box>
             <Box component='span' sx={{ ...styles?.blinkingCursor }}>
                 |
@@ -136,7 +133,6 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
 
 const TextDisplay: React.FC<TextDisplayProps> = ({
     enteredText,
-    lastLetter,
     thaiScript,
     engScript,
     engPhonemeScript,
@@ -153,7 +149,6 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
             <Grid container sx={{ height: '100%' }}>
                 <ThaiScriptDisplay
                     enteredText={enteredText}
-                    lastEnteredLetter={lastLetter}
                     thaiScript={thaiScript}
                     thaiPhonemeStartIndex={thaiPhonemeStartIndex}
                     thaiPhonemeEndIndex={thaiPhonemeEndIndex}
