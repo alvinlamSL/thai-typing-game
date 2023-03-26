@@ -15,6 +15,8 @@ import {
     engPhonemeScripts,
     keyList,
     keyListShift,
+    reverseLetterMap,
+    reverseLetterMapCaps,
     thaiPhonemeScripts
 } from './constants';
 
@@ -202,6 +204,38 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 draft.thaiPhonemeStartEndList = splitPhonemeScript(thaiPhonemeScripts[currScriptIndex], true);
             });
         }
+    }
+
+    // Update suggested key
+    if (
+        state.currThaiLetterIndex !== newState.currThaiLetterIndex ||
+        state.currScriptIndex !== newState.currScriptIndex ||
+        state.backspacesRequired !== newState.backspacesRequired
+    ) {
+        newState = produce(newState, (draft) => {
+            const {
+                backspacesRequired,
+                currThaiLetterIndex,
+                currThaiScript
+            } = newState;
+            const currThaiScriptLetter = currThaiScript[currThaiLetterIndex];
+
+            if (backspacesRequired) {
+                draft.suggestedKey.key = 'backspace';
+                draft.suggestedKey.isCaps = false;
+            } else if (reverseLetterMap[currThaiScriptLetter]) {
+                draft.suggestedKey.key = reverseLetterMap[currThaiScriptLetter];
+                draft.suggestedKey.isCaps = false;
+            } else if (reverseLetterMapCaps[currThaiScriptLetter]) {
+                draft.suggestedKey.key = reverseLetterMapCaps[currThaiScriptLetter];
+                draft.suggestedKey.isCaps = true;
+            } else {
+                draft.suggestedKey.key = '';
+                draft.suggestedKey.isCaps = false;
+            }
+
+            return draft;
+        });
     }
 
     return newState;

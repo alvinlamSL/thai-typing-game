@@ -1,5 +1,5 @@
 import type {
-    PhonemeStartEnd
+    PhonemeStartEnd, SuggestedKey
 } from '../types';
 
 import {
@@ -16,6 +16,7 @@ export interface State {
     capsLockOn: boolean
     shiftKeyDown: boolean
     enteredText: string
+    suggestedKey: SuggestedKey
     backspacesRequired: number
     currThaiLetterIndex: number
     currPhonemeIndex: number
@@ -35,6 +36,7 @@ export const initialState: State = {
     capsLockOn: false,
     shiftKeyDown: false,
     enteredText: '',
+    suggestedKey: { key: thaiPhonemeScripts[0][0], isCaps: false },
     backspacesRequired: 0,
     currThaiLetterIndex: 0,
     currPhonemeIndex: 0,
