@@ -3,24 +3,14 @@ import { Box } from '@mui/system';
 
 import KeyboardLayout from './KeyboardLayout/index';
 
-import { type SuggestedKey } from '../../App';
-
 import styles from './KeyboardDisplay.styles';
 
-interface KeyboardDisplayProps {
-    suggestedKey: SuggestedKey
-}
-
-const KeyboardDisplay: React.FC<KeyboardDisplayProps> = ({
-    suggestedKey,
-}) => {
+const KeyboardDisplay: React.FC = () => {
     return (
         <Box
             sx={{ ...styles?.main }}
         >
-            <KeyboardLayout
-                suggestedKey={suggestedKey}
-            />
+            <KeyboardLayout />
         </Box>
     );
 };

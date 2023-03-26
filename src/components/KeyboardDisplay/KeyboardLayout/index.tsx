@@ -4,15 +4,8 @@ import KeyboardLayout from './KeyboardLayout';
 
 import ReducerContext from '../../../reducer/reducerContext';
 import { keyDown, keyUp } from '../../../reducer/actions';
-import type { SuggestedKey } from '../../../App';
 
-interface KeyboardLayoutContainerProps {
-    suggestedKey: SuggestedKey
-}
-
-const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
-    suggestedKey,
-}) => {
+const KeyboardLayoutContainer: React.FC = () => {
     const { state, dispatch } = useContext(ReducerContext);
     const { pressedKeys, shiftKeyDown, capsLockOn } = state;
 
@@ -44,7 +37,6 @@ const KeyboardLayoutContainer: React.FC<KeyboardLayoutContainerProps> = ({
         <KeyboardLayout
             pressedKeys={pressedKeysObj}
             isCapsOn={isCapsOn}
-            suggestedKey={suggestedKey}
         />
     );
 };
