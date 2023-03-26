@@ -1,8 +1,4 @@
-export interface PhonemeStartEnd {
-    start: number
-    end: number
-}
-
+import type { PhonemeStartEnd } from '../types';
 export const splitPhonemeScript = (
     phonemeScript: string,
     isThaiScript?: boolean
