@@ -1,22 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 
 import { compoundLetters } from './constants';
 
-import styles from './TextDisplay.styles';
+import ReducerContext from '../../reducer/reducerContext';
 
-interface TextDisplayProps {
-    enteredText: string
-    thaiScript: string
-    engScript: string
-    engPhonemeScript: string
-    engPhonemeStartIndex: number
-    engPhonemeEndIndex: number
-    thaiPhonemeStartIndex: number
-    thaiPhonemeEndIndex: number
-    backspacesRequired: number
-}
+import styles from './TextDisplay.styles';
 
 interface ThaiScriptDisplayProps {
     enteredText: string
@@ -131,17 +121,31 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
     );
 };
 
-const TextDisplay: React.FC<TextDisplayProps> = ({
-    enteredText,
-    thaiScript,
-    engScript,
-    engPhonemeScript,
-    engPhonemeStartIndex,
-    engPhonemeEndIndex,
-    thaiPhonemeStartIndex,
-    thaiPhonemeEndIndex,
-    backspacesRequired,
-}) => {
+const TextDisplay: React.FC = () => {
+    const { state } = useContext(ReducerContext);
+
+    const {
+        backspacesRequired,
+        enteredText,
+        engPhonemeStartEndList,
+        thaiPhonemeStartEndList,
+        engPhonemeScripts,
+        engScripts,
+        currScriptIndex,
+        currPhonemeIndex,
+        currThaiScript,
+    } = state;
+
+    const {
+        start: engPhonemeStartIndex,
+        end: engPhonemeEndIndex
+    } = engPhonemeStartEndList[currPhonemeIndex] ?? { start: 0, end: 0 };
+
+    const {
+        start: thaiPhonemeStartIndex,
+        end: thaiPhonemeEndIndex
+    } = thaiPhonemeStartEndList[currPhonemeIndex] ?? { start: 0, end: 0 };
+
     return (
         <Box
             sx={{ ...styles?.main }}
@@ -149,17 +153,17 @@ const TextDisplay: React.FC<TextDisplayProps> = ({
             <Grid container sx={{ height: '100%' }}>
                 <ThaiScriptDisplay
                     enteredText={enteredText}
-                    thaiScript={thaiScript}
+                    thaiScript={currThaiScript}
                     thaiPhonemeStartIndex={thaiPhonemeStartIndex}
                     thaiPhonemeEndIndex={thaiPhonemeEndIndex}
                     backspacesRequired={backspacesRequired}
                 />
                 <EngPhonemeScriptDisplay
-                    engPhonemeScript={engPhonemeScript}
+                    engPhonemeScript={engPhonemeScripts[currScriptIndex]}
                     engPhonemeStartIndex={engPhonemeStartIndex}
                     engPhonemeEndIndex={engPhonemeEndIndex}
                 />
-                <EngScriptDisplay engScript={engScript} />
+                <EngScriptDisplay engScript={engScripts[currScriptIndex]} />
             </Grid>
         </Box>
     );
