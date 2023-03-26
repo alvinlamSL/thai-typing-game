@@ -9,7 +9,6 @@ import Banner from './components/Banner';
 import TextDisplay from './components/TextDisplay/index';
 import KeyboardDisplay from './components/KeyboardDisplay';
 
-import './App.css';
 import styles from './App.styles';
 
 const App: React.FC = () => {
