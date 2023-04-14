@@ -3,25 +3,37 @@ import { keyframes } from '@mui/system';
 
 const blink = keyframes`from,to{color:transparent}50%{color:#000}`;
 
+const textBoxStyle = {
+    width: '100%',
+    borderWidth: '2px',
+    borderRadius: '8px',
+    textAlign: 'left',
+    marginTop: '4px',
+    marginBottom: '4px',
+    padding: 1,
+    border: {
+        xs: '1px solid gray',
+        md: '1.5px solid gray',
+    },
+};
+
 const styles: Record<string, SxProps> = {
     main: {
         height: 'calc(40vh - 60px - 32px)',
         padding: { xs: 1, md: 2 },
     },
     textBox: {
-        width: '100%',
-        borderWidth: '2px',
-        borderRadius: '8px',
-        textAlign: 'left',
-        padding: 1,
-        border: {
-            xs: '1px solid gray',
-            md: '1.5px solid gray',
-        },
+        ...textBoxStyle,
         fontSize: { xs: '1em', md: '1.2em' },
+    },
+    thaiTextBox: {
+        ...textBoxStyle,
+        fontSize: { xs: '1.2em', md: '1.5em' },
     },
     blinkingCursor: {
         animation: `${blink} 1s steps(5,start) infinite`,
+        position: 'absolute',
+        top: { xs: '6px', md: '12px' },
     },
     textHighlight: {
         color: '#006600'
@@ -29,9 +41,22 @@ const styles: Record<string, SxProps> = {
     textHighlightError: {
         color: '#B30000'
     },
-    phonemeHighlight: {
+    phonemeHighlightEnglish: {
         background: '#E7CBA9',
-        color: 'black',
+    },
+    phonemeHighlightThai: {
+        background: '#E7CBA9',
+        color: '#E7CBA9',
+    },
+    thaiGhostText: {
+        opacity: '30%',
+    },
+    thaiFrontText: {
+        position: 'absolute',
+    },
+    phonemeHighlightText: {
+        position: 'absolute',
+        color: 'white',
     },
 };
 

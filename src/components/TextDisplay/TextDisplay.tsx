@@ -1,22 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 
 import { compoundLetters } from './constants';
 
-import styles from './TextDisplay.styles';
+import ReducerContext from '../../reducer/reducerContext';
 
-interface TextDisplayProps {
-    enteredText: string
-    thaiScript: string
-    engScript: string
-    engPhonemeScript: string
-    engPhonemeStartIndex: number
-    engPhonemeEndIndex: number
-    thaiPhonemeStartIndex: number
-    thaiPhonemeEndIndex: number
-    backspacesRequired: number
-}
+import styles from './TextDisplay.styles';
 
 interface ThaiScriptDisplayProps {
     enteredText: string
@@ -60,32 +50,39 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
         <Grid
             item
             sx={{
-                ...styles?.textBox,
-                height: '45%',
+                ...styles?.thaiTextBox,
             }}
         >
-            <Box component='span'>
-                {thaiScript.slice(0, thaiPhonemeStartIndex)}
+            <Box sx={{ ...styles?.phonemeHighlightText }}>
+                <Box component='span'>
+                    {thaiScript.slice(0, thaiPhonemeStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.phonemeHighlightThai }}>
+                    {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
+                </Box>
+                <Box component='span'>
+                    {thaiScript.slice(thaiPhonemeEndIndex)}
+                </Box>
             </Box>
-            <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
-                {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
+            <Box sx={{ ...styles.thaiFrontText }}>
+                <Box component='span' sx={{ color: 'green' }}>
+                    {enteredText.slice(0, highlightEnteredTextStartIndex)}
+                </Box>
+                <Box component='span' sx={
+                    backspacesRequired > 0
+                        ? { ...styles?.textHighlightError }
+                        : { ...styles?.textHighlight }
+                }>
+                    {enteredText.slice(highlightEnteredTextStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.blinkingCursor }}>
+                    _
+                </Box>
             </Box>
-            <Box component='span'>
-                {thaiScript.slice(thaiPhonemeEndIndex)}
-            </Box>
-            <div/>
-            <Box component='span'>
-                {enteredText.slice(0, highlightEnteredTextStartIndex)}
-            </Box>
-            <Box component='span' sx={
-                backspacesRequired > 0
-                    ? { ...styles?.textHighlightError }
-                    : { ...styles?.textHighlight }
-            }>
-                {enteredText.slice(highlightEnteredTextStartIndex)}
-            </Box>
-            <Box component='span' sx={{ ...styles?.blinkingCursor }}>
-                |
+            <Box sx={{ ...styles.thaiGhostText }}>
+                <Box component='span'>
+                    {thaiScript}
+                </Box>
             </Box>
         </Grid>
     );
@@ -101,13 +98,12 @@ const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
             item
             sx={{
                 ...styles?.textBox,
-                height: '25%',
             }}
         >
             <Box component='span'>
                 {engPhonemeScript.slice(0, engPhonemeStartIndex)}
             </Box>
-            <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
+            <Box component='span' sx={{ ...styles?.phonemeHighlightEnglish }}>
                 {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
             </Box>
             <Box component='span'>
@@ -123,7 +119,6 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
             item
             sx={{
                 ...styles?.textBox,
-                height: '25%',
             }}
         >
             {engScript}
@@ -131,35 +126,52 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
     );
 };
 
-const TextDisplay: React.FC<TextDisplayProps> = ({
-    enteredText,
-    thaiScript,
-    engScript,
-    engPhonemeScript,
-    engPhonemeStartIndex,
-    engPhonemeEndIndex,
-    thaiPhonemeStartIndex,
-    thaiPhonemeEndIndex,
-    backspacesRequired,
-}) => {
+const TextDisplay: React.FC = () => {
+    const { state } = useContext(ReducerContext);
+
+    const {
+        backspacesRequired,
+        enteredText,
+        engPhonemeStartEndList,
+        thaiPhonemeStartEndList,
+        engPhonemeScripts,
+        engScripts,
+        currScriptIndex,
+        currPhonemeIndex,
+        currThaiScript,
+    } = state;
+
+    const {
+        start: engPhonemeStartIndex,
+        end: engPhonemeEndIndex
+    } = engPhonemeStartEndList[currPhonemeIndex] ?? { start: 0, end: 0 };
+
+    const {
+        start: thaiPhonemeStartIndex,
+        end: thaiPhonemeEndIndex
+    } = thaiPhonemeStartEndList[currPhonemeIndex] ?? { start: 0, end: 0 };
+
     return (
         <Box
             sx={{ ...styles?.main }}
         >
-            <Grid container sx={{ height: '100%' }}>
+            <Grid
+                container
+                sx={{ height: '100%' }}
+            >
                 <ThaiScriptDisplay
                     enteredText={enteredText}
-                    thaiScript={thaiScript}
+                    thaiScript={currThaiScript}
                     thaiPhonemeStartIndex={thaiPhonemeStartIndex}
                     thaiPhonemeEndIndex={thaiPhonemeEndIndex}
                     backspacesRequired={backspacesRequired}
                 />
                 <EngPhonemeScriptDisplay
-                    engPhonemeScript={engPhonemeScript}
+                    engPhonemeScript={engPhonemeScripts[currScriptIndex]}
                     engPhonemeStartIndex={engPhonemeStartIndex}
                     engPhonemeEndIndex={engPhonemeEndIndex}
                 />
-                <EngScriptDisplay engScript={engScript} />
+                <EngScriptDisplay engScript={engScripts[currScriptIndex]} />
             </Grid>
         </Box>
     );
