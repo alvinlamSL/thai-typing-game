@@ -53,6 +53,17 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
                 ...styles?.thaiTextBox,
             }}
         >
+            <Box sx={{ ...styles?.phonemeHighlightText }}>
+                <Box component='span'>
+                    {thaiScript.slice(0, thaiPhonemeStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.phonemeHighlightThai }}>
+                    {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
+                </Box>
+                <Box component='span'>
+                    {thaiScript.slice(thaiPhonemeEndIndex)}
+                </Box>
+            </Box>
             <Box sx={{ ...styles.thaiFrontText }}>
                 <Box component='span' sx={{ color: 'green' }}>
                     {enteredText.slice(0, highlightEnteredTextStartIndex)}
@@ -70,13 +81,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
             </Box>
             <Box sx={{ ...styles.thaiGhostText }}>
                 <Box component='span'>
-                    {thaiScript.slice(0, thaiPhonemeStartIndex)}
-                </Box>
-                <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
-                    {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
-                </Box>
-                <Box component='span'>
-                    {thaiScript.slice(thaiPhonemeEndIndex)}
+                    {thaiScript}
                 </Box>
             </Box>
         </Grid>
@@ -98,7 +103,7 @@ const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
             <Box component='span'>
                 {engPhonemeScript.slice(0, engPhonemeStartIndex)}
             </Box>
-            <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
+            <Box component='span' sx={{ ...styles?.phonemeHighlightEnglish }}>
                 {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
             </Box>
             <Box component='span'>

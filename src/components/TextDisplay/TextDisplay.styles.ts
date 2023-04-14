@@ -41,16 +41,23 @@ const styles: Record<string, SxProps> = {
     textHighlightError: {
         color: '#B30000'
     },
-    phonemeHighlight: {
+    phonemeHighlightEnglish: {
         background: '#E7CBA9',
-        color: 'black',
+    },
+    phonemeHighlightThai: {
+        background: '#E7CBA9',
+        color: '#E7CBA9',
     },
     thaiGhostText: {
         opacity: '30%',
     },
     thaiFrontText: {
         position: 'absolute',
-    }
+    },
+    phonemeHighlightText: {
+        position: 'absolute',
+        color: 'white',
+    },
 };
 
 export default styles;
