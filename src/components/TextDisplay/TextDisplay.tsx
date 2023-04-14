@@ -50,32 +50,34 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
         <Grid
             item
             sx={{
-                ...styles?.textBox,
-                height: '45%',
+                ...styles?.thaiTextBox,
             }}
         >
-            <Box component='span'>
-                {thaiScript.slice(0, thaiPhonemeStartIndex)}
+            <Box sx={{ ...styles.thaiFrontText }}>
+                <Box component='span' sx={{ color: 'green' }}>
+                    {enteredText.slice(0, highlightEnteredTextStartIndex)}
+                </Box>
+                <Box component='span' sx={
+                    backspacesRequired > 0
+                        ? { ...styles?.textHighlightError }
+                        : { ...styles?.textHighlight }
+                }>
+                    {enteredText.slice(highlightEnteredTextStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.blinkingCursor }}>
+                    _
+                </Box>
             </Box>
-            <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
-                {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
-            </Box>
-            <Box component='span'>
-                {thaiScript.slice(thaiPhonemeEndIndex)}
-            </Box>
-            <div/>
-            <Box component='span'>
-                {enteredText.slice(0, highlightEnteredTextStartIndex)}
-            </Box>
-            <Box component='span' sx={
-                backspacesRequired > 0
-                    ? { ...styles?.textHighlightError }
-                    : { ...styles?.textHighlight }
-            }>
-                {enteredText.slice(highlightEnteredTextStartIndex)}
-            </Box>
-            <Box component='span' sx={{ ...styles?.blinkingCursor }}>
-                |
+            <Box sx={{ ...styles.thaiGhostText }}>
+                <Box component='span'>
+                    {thaiScript.slice(0, thaiPhonemeStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.phonemeHighlight }}>
+                    {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
+                </Box>
+                <Box component='span'>
+                    {thaiScript.slice(thaiPhonemeEndIndex)}
+                </Box>
             </Box>
         </Grid>
     );
@@ -91,7 +93,6 @@ const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
             item
             sx={{
                 ...styles?.textBox,
-                height: '25%',
             }}
         >
             <Box component='span'>
@@ -113,7 +114,6 @@ const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
             item
             sx={{
                 ...styles?.textBox,
-                height: '25%',
             }}
         >
             {engScript}
@@ -150,7 +150,10 @@ const TextDisplay: React.FC = () => {
         <Box
             sx={{ ...styles?.main }}
         >
-            <Grid container sx={{ height: '100%' }}>
+            <Grid
+                container
+                sx={{ height: '100%' }}
+            >
                 <ThaiScriptDisplay
                     enteredText={enteredText}
                     thaiScript={currThaiScript}
