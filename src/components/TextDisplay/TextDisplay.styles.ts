@@ -24,11 +24,7 @@ const styles: Record<string, SxProps> = {
     },
     textBox: {
         ...textBoxStyle,
-        fontSize: { xs: '1em', md: '1.2em' },
-    },
-    thaiTextBox: {
-        ...textBoxStyle,
-        fontSize: { xs: '1.2em', md: '1.5em' },
+        fontSize: { xs: '0.8em', md: '1em' },
     },
     blinkingCursor: {
         animation: `${blink} 1s steps(5,start) infinite`,
@@ -58,6 +54,20 @@ const styles: Record<string, SxProps> = {
         position: 'absolute',
         color: 'white',
     },
+    thaiTextField: {
+        fontSize: { xs: '1.5em', md: '1.7em' },
+        position: 'absolute',
+        padding: 1,
+    },
+    thaiTextFieldLabel: {
+        color: '#1976D2',
+    },
+    thaiTextFieldOutline: {
+        '& fieldset': {
+            borderColor: '#1976D2',
+            borderWidth: '2px',
+        },
+    }
 };
 
 export default styles;
