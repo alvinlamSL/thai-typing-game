@@ -61,11 +61,15 @@ const styles: Record<string, SxProps> = {
     },
     thaiTextFieldLabel: {
         color: '#1976D2',
+        fontSize: '1.3em',
+        lineHeight: '0.8em',
+        height: '1.3em',
     },
     thaiTextFieldOutline: {
         '& fieldset': {
             borderColor: '#1976D2',
             borderWidth: '2px',
+            fontSize: '1.3em',
         },
     }
 };
