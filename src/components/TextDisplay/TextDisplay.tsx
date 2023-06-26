@@ -49,6 +49,7 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     const inputLabel = 'Follow the gray text';
     return (
         <FormControl
+            sx={{ ...styles?.formControl }}
             fullWidth
             variant="outlined"
             focused
@@ -109,36 +110,60 @@ const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
     engPhonemeStartIndex,
     engPhonemeEndIndex,
 }) => {
+    const inputLabel = 'English pronunciation';
     return (
-        <Grid
-            item
-            sx={{
-                ...styles?.textBox,
-            }}
+        <FormControl
+            sx={{ ...styles?.formControl }}
+            fullWidth
+            variant="outlined"
+            disabled
         >
-            <Box component='span'>
-                {engPhonemeScript.slice(0, engPhonemeStartIndex)}
+            <InputLabel shrink>
+                {inputLabel}
+            </InputLabel>
+            <OutlinedInput
+                sx={{ ...styles?.textFieldInput }}
+                notched
+                label={inputLabel}
+                readOnly
+            />
+            <Box sx={{ ...styles?.textField }}>
+                <Box component='span'>
+                    {engPhonemeScript.slice(0, engPhonemeStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.phonemeHighlightEnglish }}>
+                    {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
+                </Box>
+                <Box component='span'>
+                    {engPhonemeScript.slice(engPhonemeEndIndex)}
+                </Box>
             </Box>
-            <Box component='span' sx={{ ...styles?.phonemeHighlightEnglish }}>
-                {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
-            </Box>
-            <Box component='span'>
-                {engPhonemeScript.slice(engPhonemeEndIndex)}
-            </Box>
-        </Grid>
+        </FormControl>
     );
 };
 
 const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
+    const inputLabel = 'English definition';
     return (
-        <Grid
-            item
-            sx={{
-                ...styles?.textBox,
-            }}
+        <FormControl
+            sx={{ ...styles?.formControl }}
+            fullWidth
+            variant="outlined"
+            disabled
         >
-            {engScript}
-        </Grid>
+            <InputLabel shrink>
+                {inputLabel}
+            </InputLabel>
+            <OutlinedInput
+                sx={{ ...styles?.textFieldInput }}
+                notched
+                label={inputLabel}
+                readOnly
+            />
+            <Box sx={{ ...styles?.textField }}>
+                {engScript}
+            </Box>
+        </FormControl>
     );
 };
 

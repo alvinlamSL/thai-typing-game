@@ -71,7 +71,22 @@ const styles: Record<string, SxProps> = {
             borderWidth: '2px',
             fontSize: '1.3em',
         },
-    }
+    },
+    textFieldInput: {
+        '& input': {
+            padding: 1,
+        },
+    },
+    textField: {
+        fontSize: { xs: '0.8em', md: '1em' },
+        position: 'absolute',
+        padding: 1,
+        top: '4px',
+    },
+    formControl: {
+        marginTop: '4px',
+        marginBottom: '4px',
+    },
 };
 
 export default styles;
