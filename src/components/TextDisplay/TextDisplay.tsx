@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Box } from '@mui/system';
-import { Grid } from '@mui/material';
+import { FormControl, Grid, InputLabel, OutlinedInput } from '@mui/material';
 
 import { compoundLetters } from './constants';
 
@@ -46,45 +46,62 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
         isCompoundLetter = compoundLetters.includes(enteredText[highlightEnteredTextStartIndex]);
     }
 
+    const inputLabel = 'Follow the gray text';
     return (
-        <Grid
-            item
-            sx={{
-                ...styles?.thaiTextBox,
-            }}
+        <FormControl
+            sx={{ ...styles?.formControl }}
+            fullWidth
+            variant="outlined"
+            focused
         >
-            <Box sx={{ ...styles?.phonemeHighlightText }}>
-                <Box component='span'>
-                    {thaiScript.slice(0, thaiPhonemeStartIndex)}
+            <InputLabel
+                sx={{ ...styles?.thaiTextFieldLabel }}
+                shrink
+            >
+                {inputLabel}
+            </InputLabel>
+            <OutlinedInput
+                sx={{ ...styles?.thaiTextFieldOutline }}
+                notched
+                label={inputLabel}
+                readOnly
+                color='primary'
+                autoFocus
+            />
+            <Box sx={{ ...styles?.thaiTextField }}>
+                <Box sx={{ ...styles?.phonemeHighlightText }}>
+                    <Box component='span'>
+                        {thaiScript.slice(0, thaiPhonemeStartIndex)}
+                    </Box>
+                    <Box component='span' sx={{ ...styles?.phonemeHighlightThai }}>
+                        {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
+                    </Box>
+                    <Box component='span'>
+                        {thaiScript.slice(thaiPhonemeEndIndex)}
+                    </Box>
                 </Box>
-                <Box component='span' sx={{ ...styles?.phonemeHighlightThai }}>
-                    {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
+                <Box sx={{ ...styles.thaiFrontText }}>
+                    <Box component='span' sx={{ color: 'green' }}>
+                        {enteredText.slice(0, highlightEnteredTextStartIndex)}
+                    </Box>
+                    <Box component='span' sx={
+                        backspacesRequired > 0
+                            ? { ...styles?.textHighlightError }
+                            : { ...styles?.textHighlight }
+                    }>
+                        {enteredText.slice(highlightEnteredTextStartIndex)}
+                    </Box>
+                    <Box component='span' sx={{ ...styles?.blinkingCursor }}>
+                        _
+                    </Box>
                 </Box>
-                <Box component='span'>
-                    {thaiScript.slice(thaiPhonemeEndIndex)}
+                <Box sx={{ ...styles.thaiGhostText }}>
+                    <Box component='span'>
+                        {thaiScript}
+                    </Box>
                 </Box>
             </Box>
-            <Box sx={{ ...styles.thaiFrontText }}>
-                <Box component='span' sx={{ color: 'green' }}>
-                    {enteredText.slice(0, highlightEnteredTextStartIndex)}
-                </Box>
-                <Box component='span' sx={
-                    backspacesRequired > 0
-                        ? { ...styles?.textHighlightError }
-                        : { ...styles?.textHighlight }
-                }>
-                    {enteredText.slice(highlightEnteredTextStartIndex)}
-                </Box>
-                <Box component='span' sx={{ ...styles?.blinkingCursor }}>
-                    _
-                </Box>
-            </Box>
-            <Box sx={{ ...styles.thaiGhostText }}>
-                <Box component='span'>
-                    {thaiScript}
-                </Box>
-            </Box>
-        </Grid>
+        </FormControl>
     );
 };
 
@@ -93,36 +110,60 @@ const EngPhonemeScriptDisplay: React.FC<EngPhonemeScriptDisplayProps> = ({
     engPhonemeStartIndex,
     engPhonemeEndIndex,
 }) => {
+    const inputLabel = 'English pronunciation';
     return (
-        <Grid
-            item
-            sx={{
-                ...styles?.textBox,
-            }}
+        <FormControl
+            sx={{ ...styles?.formControl }}
+            fullWidth
+            variant="outlined"
+            disabled
         >
-            <Box component='span'>
-                {engPhonemeScript.slice(0, engPhonemeStartIndex)}
+            <InputLabel shrink>
+                {inputLabel}
+            </InputLabel>
+            <OutlinedInput
+                sx={{ ...styles?.textFieldInput }}
+                notched
+                label={inputLabel}
+                readOnly
+            />
+            <Box sx={{ ...styles?.textField }}>
+                <Box component='span'>
+                    {engPhonemeScript.slice(0, engPhonemeStartIndex)}
+                </Box>
+                <Box component='span' sx={{ ...styles?.phonemeHighlightEnglish }}>
+                    {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
+                </Box>
+                <Box component='span'>
+                    {engPhonemeScript.slice(engPhonemeEndIndex)}
+                </Box>
             </Box>
-            <Box component='span' sx={{ ...styles?.phonemeHighlightEnglish }}>
-                {engPhonemeScript.slice(engPhonemeStartIndex, engPhonemeEndIndex)}
-            </Box>
-            <Box component='span'>
-                {engPhonemeScript.slice(engPhonemeEndIndex)}
-            </Box>
-        </Grid>
+        </FormControl>
     );
 };
 
 const EngScriptDisplay: React.FC<EngScriptDisplayProps> = ({ engScript }) => {
+    const inputLabel = 'English definition';
     return (
-        <Grid
-            item
-            sx={{
-                ...styles?.textBox,
-            }}
+        <FormControl
+            sx={{ ...styles?.formControl }}
+            fullWidth
+            variant="outlined"
+            disabled
         >
-            {engScript}
-        </Grid>
+            <InputLabel shrink>
+                {inputLabel}
+            </InputLabel>
+            <OutlinedInput
+                sx={{ ...styles?.textFieldInput }}
+                notched
+                label={inputLabel}
+                readOnly
+            />
+            <Box sx={{ ...styles?.textField }}>
+                {engScript}
+            </Box>
+        </FormControl>
     );
 };
 
