@@ -13,6 +13,7 @@ export interface KeyboardKeyProps {
     subText?: string
     isPressed?: boolean
     isSuggested?: boolean
+    value?: string
     handleKeyTap?: (keyText: string) => void
 }
 
@@ -26,6 +27,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({
     mainText,
     iconName,
     subText,
+    value,
     handleKeyTap = () => {},
     isPressed = false,
     isSuggested = false,
@@ -41,7 +43,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({
                         ? { ...styles.keySuggested }
                         : { ...styles.key }
             }
-            onClick={() => { handleKeyTap(subText ?? mainText); }}
+            onClick={() => { handleKeyTap(value ?? subText ?? mainText); }}
         >
             {iconName && (
                 <Box sx={{ ...styles.iconContainer }}>{KeyIcon}</Box>

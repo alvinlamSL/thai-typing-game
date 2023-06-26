@@ -2,6 +2,7 @@ export interface KeyboardKey {
     mainText: string
     subText?: string
     iconName?: string
+    value?: string
 }
 
 export interface KeyboardRowKey {
@@ -65,7 +66,7 @@ const keyboardRow3: KeyboardRow = {
         { keyProps: { mainText: 'ส', subText: 'l' }, size: 0.8 },
         { keyProps: { mainText: 'ว', subText: ';' }, size: 0.8 },
         { keyProps: { mainText: 'ง', subText: '\'' }, size: 0.8 },
-        { keyProps: { mainText: 'enter', subText: '' }, size: 1.6 },
+        { keyProps: { mainText: 'enter', subText: '', value: 'enter' }, size: 1.6 },
     ]
 };
 
@@ -150,7 +151,7 @@ const keyboardRow8: KeyboardRow = {
         { keyProps: { mainText: 'ศ', subText: 'l' }, size: 0.8 },
         { keyProps: { mainText: 'ซ', subText: ';' }, size: 0.8 },
         { keyProps: { mainText: '.', subText: '\'' }, size: 0.8 },
-        { keyProps: { mainText: 'enter', subText: '' }, size: 1.6 },
+        { keyProps: { mainText: 'enter', subText: '', value: 'enter' }, size: 1.6 },
     ]
 };
 
@@ -248,7 +249,7 @@ const keyboardRow5M: KeyboardRow = {
         { keyProps: { mainText: ',' }, size: 1 },
         { keyProps: { mainText: 'space' }, size: 6 },
         { keyProps: { mainText: '.' }, size: 1 },
-        { keyProps: { mainText: 'enter', subText: '', iconName: 'enter' }, size: 1.6 },
+        { keyProps: { mainText: 'enter', subText: '', iconName: 'enter', value: 'enter' }, size: 1.6 },
     ]
 };
 
