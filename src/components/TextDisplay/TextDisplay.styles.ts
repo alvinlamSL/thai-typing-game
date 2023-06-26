@@ -84,10 +84,6 @@ const styles: Record<string, SxProps> = {
         padding: 1,
         top: '4px',
     },
-    formControl: {
-        marginTop: '8px',
-        marginBottom: '8px',
-    },
 };
 
 export default styles;
