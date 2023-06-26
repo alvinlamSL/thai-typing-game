@@ -20,6 +20,7 @@ const textBoxStyle = {
 const styles: Record<string, SxProps> = {
     main: {
         height: 'calc(40vh - 60px - 32px)',
+        minHeight: '200px',
         padding: { xs: 1, md: 2 },
     },
     textBox: {
@@ -82,10 +83,6 @@ const styles: Record<string, SxProps> = {
         position: 'absolute',
         padding: 1,
         top: '4px',
-    },
-    formControl: {
-        marginTop: '8px',
-        marginBottom: '8px',
     },
 };
 
