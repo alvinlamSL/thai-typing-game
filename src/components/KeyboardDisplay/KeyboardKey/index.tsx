@@ -11,6 +11,7 @@ interface KeyboardKeyContainerProps {
     subText?: string
     isPressed?: boolean
     isSuggested?: boolean
+    value?: string
 }
 
 const KeyboardKeyContainer: React.FC<KeyboardKeyContainerProps> = (props) => {
