@@ -84,8 +84,8 @@ const styles: Record<string, SxProps> = {
         top: '4px',
     },
     formControl: {
-        marginTop: '4px',
-        marginBottom: '4px',
+        marginTop: '8px',
+        marginBottom: '8px',
     },
 };
 
