@@ -1,21 +1,3 @@
-export const thaiPhonemeScripts: string[] = [
-    'ส.วัส.ดี.ค่ะ',
-    'ส.วัส.ดี.ครับ',
-    'ดิ.ฉัน.ชื่อ.สุ.นิ.สา.ค่ะ',
-];
-
-export const engPhonemeScripts: string[] = [
-    'sa-wàt-dii khâ',
-    'sa-wàt-dii khráp',
-    'di-chán chûe sù-ní-sǎa khâ',
-];
-
-export const engScripts: string[] = [
-    'hello (female speaker)',
-    'hello (male speaker)',
-    'my name is Sunisa (female speaker)',
-];
-
 interface PressedKey {
     keyValue: string
     displayValue: string
