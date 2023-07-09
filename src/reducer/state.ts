@@ -2,15 +2,11 @@ import type {
     PhonemeStartEnd, SuggestedKey
 } from '../types';
 
-import {
-    engScripts,
-    engPhonemeScripts,
-    thaiPhonemeScripts,
-} from './constants';
 import { splitPhonemeScript } from './utils';
 
 export interface State {
     testText: string
+    lessonTitle: string
     pressedKeys: string[]
     tappedKeys: string[]
     capsLockOn: boolean
@@ -31,20 +27,21 @@ export interface State {
 
 export const initialState: State = {
     testText: '',
+    lessonTitle: 'No Lesson',
     pressedKeys: [],
     tappedKeys: [],
     capsLockOn: false,
     shiftKeyDown: false,
     enteredText: '',
-    suggestedKey: { key: thaiPhonemeScripts[0][0], isCaps: false },
+    suggestedKey: { key: 'ส', isCaps: false },
     backspacesRequired: 0,
     currThaiLetterIndex: 0,
     currPhonemeIndex: 0,
-    currThaiScript: thaiPhonemeScripts[0].replaceAll('.', ''),
+    currThaiScript: 'สวัสดีค่ะ',
     currScriptIndex: 0,
-    engScripts,
-    engPhonemeScripts,
-    thaiPhonemeScripts,
-    engPhonemeStartEndList: splitPhonemeScript(engPhonemeScripts[0]),
-    thaiPhonemeStartEndList: splitPhonemeScript(thaiPhonemeScripts[0], true),
+    engScripts: ['hello (female speaker)'],
+    engPhonemeScripts: ['sa-wàt-dii khâ'],
+    thaiPhonemeScripts: ['ส.วัส.ดี.ค่ะ'],
+    engPhonemeStartEndList: splitPhonemeScript('sa-wàt-dii khâ'),
+    thaiPhonemeStartEndList: splitPhonemeScript('ส.วัส.ดี.ค่ะ', true),
 };
