@@ -1,4 +1,5 @@
 import type { PhonemeStartEnd } from '../types';
+
 export const splitPhonemeScript = (
     phonemeScript: string,
     isThaiScript?: boolean
