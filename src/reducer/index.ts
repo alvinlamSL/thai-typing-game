@@ -8,16 +8,15 @@ import {
     TEST_ACTION,
     KEY_DOWN,
     KEY_UP,
-    KEY_TAP
+    KEY_TAP,
+    SET_LESSON
 } from './actions';
 
 import {
-    engPhonemeScripts,
     keyList,
     keyListShift,
     reverseLetterMap,
     reverseLetterMapCaps,
-    thaiPhonemeScripts
 } from './constants';
 
 import { splitPhonemeScript } from './utils';
@@ -93,6 +92,26 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
 
                 return draft;
             });
+            break;
+        }
+        case SET_LESSON: {
+            newState = produce(state, (draft) => {
+                const {
+                    title,
+                    engScripts,
+                    engPhonemeScripts,
+                    thaiPhonemeScripts,
+                } = action.payload.lesson;
+
+                draft.lessonTitle = title;
+                draft.engScripts = engScripts;
+                draft.engPhonemeScripts = engPhonemeScripts;
+                draft.thaiPhonemeScripts = thaiPhonemeScripts;
+                draft.currScriptIndex = 0;
+
+                return draft;
+            });
+            break;
         }
     }
 
@@ -189,11 +208,18 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
         });
     }
 
-    // Handle new script
-    if (state.currScriptIndex !== newState.currScriptIndex) {
+    // Handle new script or lesson change
+    if (
+        state.currScriptIndex !== newState.currScriptIndex ||
+        state.lessonTitle !== newState.lessonTitle
+    ) {
         // reset everything
         if (newState.currScriptIndex < newState.engScripts.length) {
-            const { currScriptIndex } = newState;
+            const {
+                currScriptIndex,
+                thaiPhonemeScripts,
+                engPhonemeScripts,
+            } = newState;
             newState = produce(newState, (draft) => {
                 draft.enteredText = '';
                 draft.backspacesRequired = 0;

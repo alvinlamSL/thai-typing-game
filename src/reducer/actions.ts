@@ -1,7 +1,10 @@
+import { type Lesson } from '../types';
+
 export const TEST_ACTION = 'TEST_ACTION';
 export const KEY_DOWN = 'KEY_DOWN';
 export const KEY_UP = 'KEY_UP';
 export const KEY_TAP = 'KEY_TAP';
+export const SET_LESSON = 'SET_LESSON';
 
 interface TestData {
     type: typeof TEST_ACTION
@@ -23,11 +26,17 @@ interface KeyTap {
     payload: { key: string }
 }
 
+interface SetLesson {
+    type: typeof SET_LESSON
+    payload: { lesson: Lesson }
+}
+
 export type ActionTypes =
     | TestData
     | KeyDown
     | KeyUp
-    | KeyTap;
+    | KeyTap
+    | SetLesson;
 
 export function testAction (testText: string): TestData {
     return {
@@ -54,5 +63,12 @@ export function keyTap (key: string): KeyTap {
     return {
         type: KEY_TAP,
         payload: { key }
+    };
+}
+
+export function setLesson (lesson: Lesson): SetLesson {
+    return {
+        type: SET_LESSON,
+        payload: { lesson }
     };
 }
