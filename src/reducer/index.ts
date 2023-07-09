@@ -192,7 +192,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
     // Handle new script
     if (state.currScriptIndex !== newState.currScriptIndex) {
         // reset everything
-        if (newState.currScriptIndex < newState.engScripts.length - 1) {
+        if (newState.currScriptIndex < newState.engScripts.length) {
             const { currScriptIndex } = newState;
             newState = produce(newState, (draft) => {
                 draft.enteredText = '';
