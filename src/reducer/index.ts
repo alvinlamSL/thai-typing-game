@@ -203,6 +203,11 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 draft.engPhonemeStartEndList = splitPhonemeScript(engPhonemeScripts[currScriptIndex]);
                 draft.thaiPhonemeStartEndList = splitPhonemeScript(thaiPhonemeScripts[currScriptIndex], true);
             });
+        } else {
+            // If end of lesson, don't advance
+            newState = produce(newState, (draft) => {
+                draft.currScriptIndex = state.currScriptIndex;
+            });
         }
     }
 
