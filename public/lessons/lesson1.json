@@ -1,18 +1,12 @@
 {
-    "title":"Lesson 0: Hello, My Name Is...",
+    "title": "Lesson 1: Alphabets 1",
     "thaiPhonemeScripts":[
-        "ส.วัส.ดี.ค่ะ",
-        "ส.วัส.ดี.ครับ",
-        "ดิ.ฉัน.ชื่อ.สุ.นิ.สา.ค่ะ"
+        "ก.ก.ก.ก"
     ],
     "engPhonemeScripts": [
-        "sa-wàt-dii khâ",
-        "sa-wàt-dii khráp",
-        "di-chán chûe sù-ní-sǎa khâ"
+        "g g g g"
     ],
     "engScripts": [
-        "hello (female speaker)",
-        "hello (male speaker)",
-        "my name is Sunisa (female speaker)"
+        "g as in give"
     ]
 }
