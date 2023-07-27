@@ -228,6 +228,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 draft.currThaiScript = thaiPhonemeScripts[currScriptIndex].replaceAll('.', '');
                 draft.engPhonemeStartEndList = splitPhonemeScript(engPhonemeScripts[currScriptIndex]);
                 draft.thaiPhonemeStartEndList = splitPhonemeScript(thaiPhonemeScripts[currScriptIndex], true);
+                draft.suggestedKey.key = undefined;
             });
         } else {
             // If end of lesson, don't advance
@@ -241,7 +242,8 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
     if (
         state.currThaiLetterIndex !== newState.currThaiLetterIndex ||
         state.currScriptIndex !== newState.currScriptIndex ||
-        state.backspacesRequired !== newState.backspacesRequired
+        state.backspacesRequired !== newState.backspacesRequired ||
+        newState.suggestedKey.key === undefined
     ) {
         newState = produce(newState, (draft) => {
             const {

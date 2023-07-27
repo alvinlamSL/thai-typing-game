@@ -4,7 +4,7 @@ export interface PhonemeStartEnd {
 }
 
 export interface SuggestedKey {
-    key: string
+    key: string | undefined
     isCaps: boolean
 }
 
