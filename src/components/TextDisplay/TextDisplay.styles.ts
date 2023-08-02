@@ -49,7 +49,12 @@ const styles: Record<string, SxProps> = {
         opacity: '30%',
     },
     thaiFrontText: {
+        maxWidth: '800px',
         position: 'absolute',
+        textAlign: 'left',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
     },
     phonemeHighlightText: {
         position: 'absolute',
