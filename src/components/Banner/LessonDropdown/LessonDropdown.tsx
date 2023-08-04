@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     MenuItem,
@@ -16,6 +16,8 @@ const LessonDropdown: React.FC<LessonDropdownProps> = ({
     lessons,
     onSelect,
 }) => {
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
     const inputLabel = 'Select Lesson';
     return (
         <TextField
@@ -25,6 +27,15 @@ const LessonDropdown: React.FC<LessonDropdownProps> = ({
             value=''
             variant='standard'
             InputLabelProps={{ shrink: false }}
+            SelectProps={{
+                open: isDropdownOpen,
+                onOpen: (e) => {
+                    if (e.type !== 'keydown') {
+                        setDropdownOpen(true);
+                    }
+                },
+                onClose: () => { setDropdownOpen(false); }
+            }}
         >
             {lessons.map((lesson, idx) => (
                 <MenuItem
