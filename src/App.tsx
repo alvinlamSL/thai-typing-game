@@ -6,6 +6,7 @@ import { reducer } from './reducer';
 import { setLesson } from './reducer/actions';
 import { initialState } from './reducer/state';
 
+import Intro from './components/Intro';
 import Banner from './components/Banner';
 import TextDisplay from './components/TextDisplay/index';
 import KeyboardDisplay from './components/KeyboardDisplay';
@@ -36,6 +37,7 @@ const App: React.FC = () => {
         <ReducerContext.Provider value={{ state, dispatch }}>
             <div className="App">
                 <Container sx={{ ...styles?.appContainer }} maxWidth="md">
+                    <Intro/>
                     <Banner/>
                     <TextDisplay />
                     <KeyboardDisplay />
