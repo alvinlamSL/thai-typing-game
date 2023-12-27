@@ -1,12 +1,36 @@
 {
     "title": "Lesson 1: Alphabets 1",
     "thaiPhonemeScripts":[
-        "ก.ก.ก.ก"
+        "ก.ก.ก.ก",
+        "ข.ข.ข.ข",
+        "ค.ค.ค.ค",
+        "ก.ไก่",
+        "ไก่.ไก่.ไก่.ไก่",
+        "ข.ไข่",
+        "ไข่.ไข่.ไข่.ไข่",
+        "ค.ควาย",
+        "ควาย.ควาย.ควาย.ควาย"
     ],
     "engPhonemeScripts": [
-        "g g g g"
+        "gor gor gor gor",
+        "khor khor khor khor",
+        "khor khor khor khor",
+        "gor gai",
+        "gai gai gai gai",
+        "khor khai",
+        "khai khai khai khai",
+        "khor khway",
+        "khway khway khway khway"
     ],
     "engScripts": [
-        "g as in give"
+        "g as in give, -or as in for",
+        "kh like the c in can",
+        "ข and ค sound the same",
+        "g for chicken",
+        "chicken chicken chicken chicken",
+        "kh for egg",
+        "egg egg egg egg",
+        "kh for buffalo",
+        "buffalo buffalo buffalo buffalo"
     ]
 }
