@@ -63,7 +63,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
                     <KeyboardKey
                         {...keyProps}
                         isPressed={pressedKeys[keyProps.mainText] || pressedKeys[keyProps.subText ?? '']}
-                        isSuggested={keyToHighlight === keyProps.subText}
+                        isSuggested={keyToHighlight === keyProps.subText || keyToHighlight === keyProps.value}
                     />
                 </Grid>
             ))}

@@ -29,7 +29,7 @@ const keyboardRow1: KeyboardRow = {
         { keyProps: { mainText: 'จ', subText: '0' }, size: 0.8 },
         { keyProps: { mainText: 'ข', subText: '-' }, size: 0.8 },
         { keyProps: { mainText: 'ช', subText: '=' }, size: 0.8 },
-        { keyProps: { mainText: 'backspace' }, size: 1.6 },
+        { keyProps: { mainText: 'backspace', value: 'backspace' }, size: 1.6 },
     ]
 };
 
@@ -83,7 +83,7 @@ const keyboardRow4: KeyboardRow = {
         { keyProps: { mainText: 'ม', subText: ',' }, size: 0.8 },
         { keyProps: { mainText: 'ใ', subText: '.' }, size: 0.8 },
         { keyProps: { mainText: 'ฝ', subText: '/' }, size: 0.8 },
-        { keyProps: { mainText: 'shift' }, size: 2 },
+        { keyProps: { mainText: 'shift', value: 'shift' }, size: 2 },
     ]
 };
 
@@ -114,7 +114,7 @@ const keyboardRow6: KeyboardRow = {
         { keyProps: { mainText: '๗', subText: '0' }, size: 0.8 },
         { keyProps: { mainText: '๘', subText: '-' }, size: 0.8 },
         { keyProps: { mainText: '๙', subText: '=' }, size: 0.8 },
-        { keyProps: { mainText: 'backspace' }, size: 1.6 },
+        { keyProps: { mainText: 'backspace', value: 'backspace' }, size: 1.6 },
     ]
 };
 
