@@ -33,6 +33,14 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
     thaiPhonemeEndIndex,
     backspacesRequired,
 }) => {
+    let actualThaiScript = thaiScript;
+    if (backspacesRequired > 0) {
+        const start = thaiScript.slice(0, enteredText.length - backspacesRequired);
+        const error = enteredText.slice(-backspacesRequired);
+        const end = thaiScript.slice(enteredText.length - backspacesRequired);
+        actualThaiScript = start + error + end;
+    }
+
     let highlightEnteredTextStartIndex = enteredText.length;
     if (backspacesRequired > 0) {
         highlightEnteredTextStartIndex -= backspacesRequired;
@@ -70,14 +78,12 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
                 />
                 <Box sx={{ ...styles?.thaiTextField }}>
                     <Box sx={{ ...styles?.phonemeHighlightText }}>
+                        {/* Empty space to bump the highlight forward */}
                         <Box component='span'>
-                            {thaiScript.slice(0, thaiPhonemeStartIndex)}
+                            {enteredText}
                         </Box>
                         <Box component='span' sx={{ ...styles?.phonemeHighlightThai }}>
                             {thaiScript.slice(thaiPhonemeStartIndex, thaiPhonemeEndIndex)}
-                        </Box>
-                        <Box component='span'>
-                            {thaiScript.slice(thaiPhonemeEndIndex)}
                         </Box>
                     </Box>
                     <Box sx={{ ...styles.thaiFrontText }}>
@@ -91,13 +97,14 @@ const ThaiScriptDisplay: React.FC<ThaiScriptDisplayProps> = ({
                         }>
                             {enteredText.slice(highlightEnteredTextStartIndex)}
                         </Box>
+                        {/* TODO: get rid of blinking cursor and use a blinking highlight instead */}
                         <Box component='span' sx={{ ...styles?.blinkingCursor }}>
                             _
                         </Box>
                     </Box>
                     <Box sx={{ ...styles.thaiGhostText }}>
                         <Box component='span'>
-                            {thaiScript}
+                            {actualThaiScript}
                         </Box>
                     </Box>
                 </Box>

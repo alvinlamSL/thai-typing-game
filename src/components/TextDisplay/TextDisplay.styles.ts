@@ -1,7 +1,14 @@
 import { type SxProps } from '@mui/system';
 import { keyframes } from '@mui/system';
 
-const blink = keyframes`from,to{color:transparent}50%{color:#000}`;
+const blink = keyframes`
+    from,to {
+        background-color:transparent
+    }
+    50% {
+        background-color:#E7CBA980
+    }
+`;
 
 const textBoxStyle = {
     width: '100%',
@@ -36,17 +43,23 @@ const styles: Record<string, SxProps> = {
         color: '#006600'
     },
     textHighlightError: {
-        color: '#B30000'
+        color: '#B30000',
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'wavy',
+        textDecorationColor: 'red',
+        textDecorationThickness: '1.2px',
     },
     phonemeHighlightEnglish: {
         background: '#E7CBA9',
     },
     phonemeHighlightThai: {
+        animation: `${blink} 1s ease-in-out infinite running`,
         background: '#E7CBA9',
-        color: '#E7CBA9',
+        color: 'transparent',
     },
     thaiGhostText: {
         opacity: '30%',
+        overflow: 'hidden',
     },
     thaiFrontText: {
         maxWidth: '800px',
@@ -57,8 +70,12 @@ const styles: Record<string, SxProps> = {
         overflow: 'hidden',
     },
     phonemeHighlightText: {
+        maxWidth: '800px',
         position: 'absolute',
         color: 'white',
+        textAlign: 'left',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
     },
     thaiTextField: {
         fontSize: { xs: '1.5em', md: '1.7em' },
