@@ -41,7 +41,7 @@ const KeyboardRow: React.FC<KeyboardRowProps> = ({
     const { state } = useContext(ReducerContext);
     const { suggestedKey } = state;
     let keyToHighlight = suggestedKey.key;
-    if (isCapsOn !== suggestedKey.isCaps) {
+    if (keyToHighlight !== 'backspace' && isCapsOn !== suggestedKey.isCaps) {
         keyToHighlight = isMobile ? 'capslock' : 'shift';
     }
 
