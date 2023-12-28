@@ -4,33 +4,44 @@
         "ก.ก.ก.ก",
         "ข.ข.ข.ข",
         "ค.ค.ค.ค",
+        "ฆ.ฆ.ฆ.ฆ",
+        "ก.ข.ค.ฆ",
         "ก.ไก่",
         "ไก่.ไก่.ไก่.ไก่",
         "ข.ไข่",
         "ไข่.ไข่.ไข่.ไข่",
         "ค.ควาย",
-        "ควาย.ควาย.ควาย.ควาย"
+        "ควาย.ควาย.ควาย.ควาย",
+        "ฆ.ระ.ฆัง",
+        "ระ.ฆัง.ระ.ฆัง.ระ.ฆัง"
     ],
     "engPhonemeScripts": [
         "gor gor gor gor",
         "khor khor khor khor",
         "khor khor khor khor",
-        "gor gai",
-        "gai gai gai gai",
-        "khor khái",
-        "khái khái khái khái",
+        "khor khor khor khor",
+        "gor khor khor khor",
+        "gor gài",
+        "gài gài gài gài",
+        "khor khài",
+        "khài khài khài khài",
         "khor khwày",
-        "khwày khwày khwày khwày"
+        "khwày khwày khwày khwày",
+        "khor rá khang",
+        "rá khang rá khang rá khang"
     ],
     "engScripts": [
         "g as in give, -or as in for",
         "kh like the c in can",
-        "ข and ค sound the same",
+        "kh like the c in can",
+        "kh like the c in can",
         "g for chicken",
         "chicken chicken chicken chicken",
         "kh for egg",
         "egg egg egg egg",
         "kh for buffalo",
-        "buffalo buffalo buffalo buffalo"
+        "buffalo buffalo buffalo buffalo",
+        "kh for bell",
+        "bell bell bell"
     ]
 }
