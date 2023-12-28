@@ -72,7 +72,7 @@ const keyboardRow3: KeyboardRow = {
 
 const keyboardRow4: KeyboardRow = {
     keyboardKeys: [
-        { keyProps: { mainText: 'shift' }, size: 2 },
+        { keyProps: { mainText: 'shift', value: 'shift' }, size: 2 },
         { keyProps: { mainText: 'ผ', subText: 'z' }, size: 0.8 },
         { keyProps: { mainText: 'ป', subText: 'x' }, size: 0.8 },
         { keyProps: { mainText: 'แ', subText: 'c' }, size: 0.8 },

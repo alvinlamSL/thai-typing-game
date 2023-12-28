@@ -49,7 +49,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
 
                 // If shift key pressed
                 if (key.toLowerCase() === 'shift') {
-                    draft.capsLockOn = true;
+                    draft.shiftKeyDown = true;
                 }
 
                 return draft;
@@ -69,7 +69,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 }
 
                 if (key.toLowerCase() === 'shift') {
-                    draft.capsLockOn = false;
+                    draft.shiftKeyDown = false;
                 }
 
                 return draft;
@@ -135,7 +135,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
             }
 
             // If any other valid key was pressed
-            if (keyList[pressedKey]) {
+            if (keyList[pressedKey] || keyListShift[pressedKey]) {
                 const { shiftKeyDown, capsLockOn } = newState;
                 const currKeyList = (shiftKeyDown !== capsLockOn)
                     ? keyListShift

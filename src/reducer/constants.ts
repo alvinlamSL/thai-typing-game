@@ -101,6 +101,19 @@ export const keyListShift: Record<string, PressedKey> = {
     '\\': { displayValue: 'ฅ', keyValue: '\\' },
     ';': { displayValue: 'ซ', keyValue: ';' },
     '\'': { displayValue: '.', keyValue: '\'' },
+    // need alternative for the numbers row to match shift key hold
+    '!': { displayValue: '+', keyValue: '!' },
+    '@': { displayValue: '๑', keyValue: '@' },
+    '#': { displayValue: '๒', keyValue: '#' },
+    $: { displayValue: '๓', keyValue: '$' },
+    '%': { displayValue: '๔', keyValue: '%' },
+    '^': { displayValue: 'ู', keyValue: '^' },
+    '&': { displayValue: '฿', keyValue: '&' },
+    '*': { displayValue: '๕', keyValue: '*' },
+    '(': { displayValue: '๖', keyValue: '(' },
+    ')': { displayValue: '๗', keyValue: ')' },
+    _: { displayValue: '๘', keyValue: '_' },
+    '+': { displayValue: '๙', keyValue: '+' },
 };
 
 export const reverseLetterMap: Record<string, string> = {
