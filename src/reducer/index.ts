@@ -129,7 +129,10 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
 
             // If enter pressed
             if (pressedKey.toLowerCase() === 'enter') {
-                if (newState.currThaiLetterIndex === state.currThaiScript.length) {
+                if (
+                    newState.currThaiLetterIndex === state.currThaiScript.length &&
+                    newState.backspacesRequired === 0
+                ) {
                     draft.currScriptIndex++;
                 }
             }
