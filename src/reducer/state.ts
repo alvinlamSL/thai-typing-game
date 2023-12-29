@@ -1,5 +1,5 @@
 import type {
-    PhonemeStartEnd, SuggestedKey
+    PhonemeStartEnd, ReplayLessonState, SuggestedKey
 } from '../types';
 
 import { splitPhonemeScript } from './utils';
@@ -23,6 +23,7 @@ export interface State {
     thaiPhonemeScripts: string[]
     engPhonemeStartEndList: PhonemeStartEnd[]
     thaiPhonemeStartEndList: PhonemeStartEnd[]
+    replayLessonState: ReplayLessonState
 };
 
 export const initialState: State = {
@@ -44,4 +45,5 @@ export const initialState: State = {
     thaiPhonemeScripts: ['ส.วัส.ดี.ค่ะ'],
     engPhonemeStartEndList: splitPhonemeScript('sa-wàt-dii khâ'),
     thaiPhonemeStartEndList: splitPhonemeScript('ส.วัส.ดี.ค่ะ', true),
+    replayLessonState: 'none',
 };

@@ -1,10 +1,11 @@
-import { type Lesson } from '../types';
+import type { ReplayLessonState, Lesson } from '../types';
 
 export const TEST_ACTION = 'TEST_ACTION';
 export const KEY_DOWN = 'KEY_DOWN';
 export const KEY_UP = 'KEY_UP';
 export const KEY_TAP = 'KEY_TAP';
 export const SET_LESSON = 'SET_LESSON';
+export const REPLAY_LESSON = 'REPLAY_LESSON';
 
 interface TestData {
     type: typeof TEST_ACTION
@@ -31,12 +32,18 @@ interface SetLesson {
     payload: { lesson: Lesson }
 }
 
+interface ReplayLesson {
+    type: typeof REPLAY_LESSON
+    payload: { state: ReplayLessonState }
+}
+
 export type ActionTypes =
     | TestData
     | KeyDown
     | KeyUp
     | KeyTap
-    | SetLesson;
+    | SetLesson
+    | ReplayLesson;
 
 export function testAction (testText: string): TestData {
     return {
@@ -70,5 +77,12 @@ export function setLesson (lesson: Lesson): SetLesson {
     return {
         type: SET_LESSON,
         payload: { lesson }
+    };
+}
+
+export function replayLesson (state: ReplayLessonState): ReplayLesson {
+    return {
+        type: REPLAY_LESSON,
+        payload: { state }
     };
 }

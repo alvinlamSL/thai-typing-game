@@ -9,7 +9,8 @@ import {
     KEY_DOWN,
     KEY_UP,
     KEY_TAP,
-    SET_LESSON
+    SET_LESSON,
+    REPLAY_LESSON,
 } from './actions';
 
 import {
@@ -108,6 +109,20 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 draft.engPhonemeScripts = engPhonemeScripts;
                 draft.thaiPhonemeScripts = thaiPhonemeScripts;
                 draft.currScriptIndex = 0;
+
+                return draft;
+            });
+            break;
+        }
+        case REPLAY_LESSON: {
+            newState = produce(state, (draft) => {
+                draft.replayLessonState = action.payload.state;
+
+                // user confirmed replay lesson
+                if (action.payload.state === 'confirmed') {
+                    draft.replayLessonState = 'none';
+                    draft.currScriptIndex = -1;
+                }
 
                 return draft;
             });
@@ -216,6 +231,14 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
         state.currScriptIndex !== newState.currScriptIndex ||
         state.lessonTitle !== newState.lessonTitle
     ) {
+        // the script index cannot be less than 0
+        // (use this as a way to restart even when on script 0)
+        if (newState.currScriptIndex < 0) {
+            newState = produce(newState, (draft) => {
+                draft.currScriptIndex = 0;
+            });
+        }
+
         // reset everything
         if (newState.currScriptIndex < newState.engScripts.length) {
             const {

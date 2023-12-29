@@ -8,6 +8,7 @@ import {
     Typography
 } from '@mui/material';
 import LessonDropdown from './LessonDropdown/index';
+import LessonReplay from './LessonReplay';
 
 import ReducerContext from '../../reducer/reducerContext';
 import styles from './Banner.styles';
@@ -31,8 +32,17 @@ const Banner: React.FC = () => {
                         direction="column"
                         alignItems="flex-start"
                     >
-                        <Grid item>
-                            <LessonDropdown/>
+                        <Grid
+                            item
+                            container
+                            alignItems="flex-end"
+                        >
+                            <Grid item>
+                                <LessonDropdown/>
+                            </Grid>
+                            <Grid item>
+                                <LessonReplay/>
+                            </Grid>
                         </Grid>
                         <Grid item>
                             <Typography

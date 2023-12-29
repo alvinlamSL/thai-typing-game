@@ -14,3 +14,8 @@ export interface Lesson {
     thaiPhonemeScripts: string[]
     engPhonemeScripts: string[]
 }
+
+export type ReplayLessonState =
+    'none' |
+    'awaiting' |
+    'confirmed';
