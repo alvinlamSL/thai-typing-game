@@ -1,0 +1,37 @@
+{
+    "title": "Lesson 2: Consonants 2",
+    "thaiPhonemeScripts":[
+        "ง.ง.ง.ง",
+        "จ.จ.จ.จ",
+        "ฉ.ฉ.ฉ.ฉ",
+        "ช.ช.ช.ช",
+        "ซ.ซ.ซ.ซ",
+        "งู.งู.งู.งู",
+        "จาน.จาน.จาน.จาน",
+        "ฉิ่ง.ฉิ่ง.ฉิ่ง.ฉิ่ง",
+        "ช้าง.ช้าง.ช้าง.ช้าง",
+        "โซ่.โซ่.โซ่.โซ่"
+    ],
+    "engPhonemeScripts": [
+        "ngoor ngoor ngoor ngoor",
+        "joor joor joor joor",
+        "chǒor chǒor chǒor chǒor",
+        "soor soor soor soor",
+        "ngu ngu ngu ngu",
+        "jaan jaan jaan jaan",
+        "chìng chìng chìng chìng",
+        "cháang cháang cháang cháang",
+        "sôow sôow sôow sôow"
+    ],
+    "engScripts": [
+        "ng as in song, -oor as in floor",
+        "j as in jar",
+        "ch as in check",
+        "s as in sock",
+        "snake snake snake snake",
+        "plate plate plate plate",
+        "cymbal cymbal cymbal cymbal",
+        "elephant elephant elephant elephant",
+        "chain chain chain chain"
+    ]
+}
