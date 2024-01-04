@@ -1,7 +1,5 @@
 import React, {
     useContext,
-    useEffect,
-    useState
 } from 'react';
 import { type Lesson } from '../../../types';
 
@@ -11,16 +9,8 @@ import ReducerContext from '../../../reducer/reducerContext';
 import { setLesson } from '../../../reducer/actions';
 
 const LessonDropdownContainer: React.FC = () => {
-    const { dispatch } = useContext(ReducerContext);
-    const [lessons, setLessons] = useState([]);
-
-    useEffect(() => {
-        fetch(`${process.env.PUBLIC_URL}/lessons.json`)
-            .then(async (f) => await f.json())
-            .then((data) => {
-                setLessons(data);
-            }, () => {});
-    }, []);
+    const { state, dispatch } = useContext(ReducerContext);
+    const { lessonTitles } = state;
 
     const handleOnSelect = (lessonId: number): void => {
         fetch(`${process.env.PUBLIC_URL}/lessons/lesson${lessonId}.json`)
@@ -40,7 +30,7 @@ const LessonDropdownContainer: React.FC = () => {
 
     return (
         <LessonDropdown
-            lessons={lessons}
+            lessons={lessonTitles}
             onSelect={handleOnSelect}
         />
     );
