@@ -31,6 +31,7 @@ const LessonDropdownContainer: React.FC = () => {
                     engScripts: data.engScripts,
                     engPhonemeScripts: data.engPhonemeScripts,
                     thaiPhonemeScripts: data.thaiPhonemeScripts,
+                    index: lessonId,
                 };
 
                 dispatch(setLesson(lesson));

@@ -11,6 +11,7 @@ import {
     KEY_TAP,
     SET_LESSON,
     REPLAY_LESSON,
+    SET_LESSONS,
 } from './actions';
 
 import {
@@ -102,6 +103,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                     engScripts,
                     engPhonemeScripts,
                     thaiPhonemeScripts,
+                    index,
                 } = action.payload.lesson;
 
                 draft.lessonTitle = title;
@@ -109,6 +111,7 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 draft.engPhonemeScripts = engPhonemeScripts;
                 draft.thaiPhonemeScripts = thaiPhonemeScripts;
                 draft.currScriptIndex = 0;
+                draft.lessonIndex = index;
 
                 return draft;
             });
@@ -125,6 +128,12 @@ export const reducer: Reducer<State, ActionTypes> = (state, action) => {
                 }
 
                 return draft;
+            });
+            break;
+        }
+        case SET_LESSONS: {
+            newState = produce(state, (draft) => {
+                draft.lessonTitles = action.payload.lessonTitles;
             });
             break;
         }

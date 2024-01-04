@@ -5,6 +5,7 @@ export const KEY_DOWN = 'KEY_DOWN';
 export const KEY_UP = 'KEY_UP';
 export const KEY_TAP = 'KEY_TAP';
 export const SET_LESSON = 'SET_LESSON';
+export const SET_LESSONS = 'SET_LESSONS';
 export const REPLAY_LESSON = 'REPLAY_LESSON';
 
 interface TestData {
@@ -32,6 +33,11 @@ interface SetLesson {
     payload: { lesson: Lesson }
 }
 
+interface SetLessons {
+    type: typeof SET_LESSONS
+    payload: { lessonTitles: string[] }
+}
+
 interface ReplayLesson {
     type: typeof REPLAY_LESSON
     payload: { state: ReplayLessonState }
@@ -42,6 +48,7 @@ export type ActionTypes =
     | KeyDown
     | KeyUp
     | KeyTap
+    | SetLessons
     | SetLesson
     | ReplayLesson;
 
@@ -77,6 +84,13 @@ export function setLesson (lesson: Lesson): SetLesson {
     return {
         type: SET_LESSON,
         payload: { lesson }
+    };
+}
+
+export function setLessons (lessonTitles: string[]): SetLessons {
+    return {
+        type: SET_LESSONS,
+        payload: { lessonTitles }
     };
 }
 

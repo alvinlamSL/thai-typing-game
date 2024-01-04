@@ -13,6 +13,7 @@ export interface Lesson {
     engScripts: string[]
     thaiPhonemeScripts: string[]
     engPhonemeScripts: string[]
+    index: number
 }
 
 export type ReplayLessonState =

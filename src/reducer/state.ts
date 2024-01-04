@@ -1,12 +1,16 @@
 import type {
-    PhonemeStartEnd, ReplayLessonState, SuggestedKey
+    PhonemeStartEnd,
+    ReplayLessonState,
+    SuggestedKey
 } from '../types';
 
 import { splitPhonemeScript } from './utils';
 
 export interface State {
     testText: string
+    lessonTitles: string[]
     lessonTitle: string
+    lessonIndex: number
     pressedKeys: string[]
     tappedKeys: string[]
     capsLockOn: boolean
@@ -28,7 +32,9 @@ export interface State {
 
 export const initialState: State = {
     testText: '',
+    lessonTitles: [],
     lessonTitle: 'No Lesson',
+    lessonIndex: -1,
     pressedKeys: [],
     tappedKeys: [],
     capsLockOn: false,
